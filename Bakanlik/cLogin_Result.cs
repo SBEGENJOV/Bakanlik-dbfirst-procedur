@@ -10,18 +10,10 @@
 namespace Bakanlik
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class vatandas
+    public partial class cLogin_Result
     {
-        public int kisiNo { get; set; }
-        public string kisiTC { get; set; }
-        public string KisiMeslek { get; set; }
-        public string KisiAdres { get; set; }
-        public string KisiTelefon { get; set; }
-        public string KisiMail { get; set; }
-        public Nullable<int> vergiID { get; set; }
-    
-        public virtual vergiler vergiler { get; set; }
+        public string employeeUser { get; set; }
+        public string employeePassword { get; set; }
     }
 }

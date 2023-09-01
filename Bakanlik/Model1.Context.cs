@@ -29,8 +29,9 @@ namespace Bakanlik
     
         public virtual DbSet<bakanlik> bakanlik { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<EmpLogin> EmpLogins { get; set; }
+        public virtual DbSet<vergiler> vergilers { get; set; }
         public virtual DbSet<vatandas> vatandas { get; set; }
-        public virtual DbSet<vergiler> vergiler { get; set; }
     
         public virtual int bakanAdd(string bakanlikAdi, string daireBaskani, Nullable<decimal> bakanlikCiro, string bakanlikMerkez)
         {
@@ -352,6 +353,47 @@ namespace Bakanlik
         public virtual ObjectResult<bcirosira_Result> bcirosira()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<bcirosira_Result>("bcirosira");
+        }
+    
+        public virtual ObjectResult<cLogin_Result> cLogin(string employeeUser, string employeePassword)
+        {
+            var employeeUserParameter = employeeUser != null ?
+                new ObjectParameter("employeeUser", employeeUser) :
+                new ObjectParameter("employeeUser", typeof(string));
+    
+            var employeePasswordParameter = employeePassword != null ?
+                new ObjectParameter("employeePassword", employeePassword) :
+                new ObjectParameter("employeePassword", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<cLogin_Result>("cLogin", employeeUserParameter, employeePasswordParameter);
+        }
+    
+        public virtual ObjectResult<kLogin_Result> kLogin(string kisiTelefon, Nullable<int> kisiTC)
+        {
+            var kisiTelefonParameter = kisiTelefon != null ?
+                new ObjectParameter("KisiTelefon", kisiTelefon) :
+                new ObjectParameter("KisiTelefon", typeof(string));
+    
+            var kisiTCParameter = kisiTC.HasValue ?
+                new ObjectParameter("kisiTC", kisiTC) :
+                new ObjectParameter("kisiTC", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<kLogin_Result>("kLogin", kisiTelefonParameter, kisiTCParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> ciroBilgi()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("ciroBilgi");
+        }
+
+        internal void vatandasAdd(string kisiTC, string kisiMeslek, string kisiAdres, string kisiTelefon, string kisiMail, int? vergiID)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void vatandasUpdate(int kisiNo, string kisiTC, string kisiMeslek, string kisiAdres, string kisiTelefon, string kisiMail, int? vergiID)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -14,10 +14,19 @@ namespace Bakanlik
     
     public partial class bakanlik
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public bakanlik()
+        {
+            this.vergilers = new HashSet<vergiler>();
+        }
+    
         public int bakanlikID { get; set; }
         public string bakanlikAdi { get; set; }
         public string daireBaskani { get; set; }
         public Nullable<decimal> bakanlikCiro { get; set; }
         public string BakanlikMerkez { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<vergiler> vergilers { get; set; }
     }
 }

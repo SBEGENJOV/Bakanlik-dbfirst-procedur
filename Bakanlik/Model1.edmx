@@ -15,6 +15,16 @@
           <Property Name="bakanlikCiro" Type="money" />
           <Property Name="BakanlikMerkez" Type="varchar" MaxLength="50" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'bakan.dbo.EmpLogin' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="EmpLogin">
+          <Key>
+            <PropertyRef Name="employeeUser" />
+            <PropertyRef Name="employeePassword" />
+          </Key>
+          <Property Name="employeeUser" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="employeePassword" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -30,7 +40,7 @@
             <PropertyRef Name="kisiNo" />
           </Key>
           <Property Name="kisiNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="kisiTC" Type="int" />
+          <Property Name="kisiTC" Type="varchar" MaxLength="11" />
           <Property Name="KisiMeslek" Type="varchar" MaxLength="50" />
           <Property Name="KisiAdres" Type="varchar" MaxLength="50" />
           <Property Name="KisiTelefon" Type="varchar" MaxLength="11" />
@@ -91,7 +101,16 @@
         </Function>
         <Function Name="bakanVergi" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="bcirosira" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="ciroBilgi" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="cLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="employeeUser" Type="varchar" Mode="In" />
+          <Parameter Name="employeePassword" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="kLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="KisiTelefon" Type="varchar" Mode="In" />
+          <Parameter Name="kisiTC" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
@@ -168,6 +187,12 @@
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="vatandas" EntityType="Self.vatandas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="vergiler" EntityType="Self.vergiler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmpLogin" EntityType="Self.EmpLogin" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [EmpLogin].[employeeUser] AS [employeeUser], 
+    [EmpLogin].[employeePassword] AS [employeePassword]
+    FROM [dbo].[EmpLogin] AS [EmpLogin]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_vatandas_vergiler" Association="Self.FK_vatandas_vergiler">
             <End Role="vergiler" EntitySet="vergiler" />
             <End Role="vatandas" EntitySet="vatandas" />
@@ -190,6 +215,7 @@
           <Property Name="daireBaskani" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="bakanlikCiro" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="BakanlikMerkez" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="vergilers" Relationship="bakanModel.FK_vergiler_bakanlik" FromRole="bakanlik" ToRole="vergiler" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -201,66 +227,9 @@
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
-        <EntityType Name="vatandas">
-          <Key>
-            <PropertyRef Name="kisiNo" />
-          </Key>
-          <Property Name="kisiNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="kisiTC" Type="Int32" />
-          <Property Name="KisiMeslek" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="KisiAdres" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="KisiTelefon" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
-          <Property Name="KisiMail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="vergiID" Type="Int32" />
-        </EntityType>
-        <EntityType Name="vergiler">
-          <Key>
-            <PropertyRef Name="vergiID" />
-          </Key>
-          <Property Name="vergiID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="vergiAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="vergiTipi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="vergiTutar" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="vergiFaiz" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="bakanlikID" Type="Int32" />
-        </EntityType>
-        <Association Name="FK_vergiler_bakanlik">
-          <End Role="bakanlik" Type="Self.bakanlik" Multiplicity="0..1" />
-          <End Role="vergiler" Type="Self.vergiler" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="bakanlik">
-              <PropertyRef Name="bakanlikID" />
-            </Principal>
-            <Dependent Role="vergiler">
-              <PropertyRef Name="bakanlikID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_vatandas_vergiler">
-          <End Role="vergiler" Type="Self.vergiler" Multiplicity="0..1" />
-          <End Role="vatandas" Type="Self.vatandas" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="vergiler">
-              <PropertyRef Name="vergiID" />
-            </Principal>
-            <Dependent Role="vatandas">
-              <PropertyRef Name="vergiID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="bakanEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="bakanlik" EntityType="Self.bakanlik" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
-          <EntitySet Name="vatandas" EntityType="Self.vatandas" />
-          <EntitySet Name="vergiler" EntityType="Self.vergiler" />
-          <AssociationSet Name="FK_vergiler_bakanlik" Association="Self.FK_vergiler_bakanlik">
-            <End Role="bakanlik" EntitySet="bakanlik" />
-            <End Role="vergiler" EntitySet="vergiler" />
-          </AssociationSet>
-          <AssociationSet Name="FK_vatandas_vergiler" Association="Self.FK_vatandas_vergiler">
-            <End Role="vergiler" EntitySet="vergiler" />
-            <End Role="vatandas" EntitySet="vatandas" />
-          </AssociationSet>
           <FunctionImport Name="bakanAdd">
             <Parameter Name="bakanlikAdi" Mode="In" Type="String" />
             <Parameter Name="daireBaskani" Mode="In" Type="String" />
@@ -352,6 +321,26 @@
           <FunctionImport Name="vv" ReturnType="Collection(bakanModel.vv_Result)" >
           </FunctionImport>
           <FunctionImport Name="bcirosira" ReturnType="Collection(bakanModel.bcirosira_Result)" />
+          <EntitySet Name="EmpLogins" EntityType="bakanModel.EmpLogin" />
+          <FunctionImport Name="cLogin" ReturnType="Collection(bakanModel.cLogin_Result)">
+            <Parameter Name="employeeUser" Mode="In" Type="String" />
+            <Parameter Name="employeePassword" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="kLogin" ReturnType="Collection(bakanModel.kLogin_Result)">
+            <Parameter Name="KisiTelefon" Mode="In" Type="String" />
+            <Parameter Name="kisiTC" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="vergilers" EntityType="bakanModel.vergiler" />
+          <AssociationSet Name="FK_vergiler_bakanlik" Association="bakanModel.FK_vergiler_bakanlik">
+            <End Role="bakanlik" EntitySet="bakanlik" />
+            <End Role="vergiler" EntitySet="vergilers" />
+          </AssociationSet>
+          <EntitySet Name="vatandas" EntityType="bakanModel.vatandas" />
+          <AssociationSet Name="FK_vatandas_vergiler" Association="bakanModel.FK_vatandas_vergiler">
+            <End Role="vergiler" EntitySet="vergilers" />
+            <End Role="vatandas" EntitySet="vatandas" />
+          </AssociationSet>
+          <FunctionImport Name="ciroBilgi" ReturnType="Collection(Decimal)" />
         </EntityContainer>
         <ComplexType Name="bakanList_Result">
           <Property Type="Int32" Name="bakanlikID" Nullable="false" />
@@ -427,6 +416,77 @@
           <Property Type="Decimal" Name="bakanlikCiro" Nullable="true" Precision="19" />
           <Property Type="String" Name="BakanlikMerkez" Nullable="true" MaxLength="50" />
         </ComplexType>
+        <EntityType Name="EmpLogin">
+          <Key>
+            <PropertyRef Name="employeeUser" />
+            <PropertyRef Name="employeePassword" />
+          </Key>
+          <Property Name="employeeUser" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="employeePassword" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <ComplexType Name="cLogin_Result">
+          <Property Type="String" Name="employeeUser" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="employeePassword" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="kLogin_Result">
+          <Property Type="Int32" Name="kisiNo" Nullable="false" />
+          <Property Type="Int32" Name="kisiTC" Nullable="true" />
+          <Property Type="String" Name="KisiMeslek" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="KisiAdres" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="KisiTelefon" Nullable="true" MaxLength="11" />
+          <Property Type="String" Name="KisiMail" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="vergiID" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="vergiler">
+          <Key>
+            <PropertyRef Name="vergiID" />
+          </Key>
+          <Property Name="vergiID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="vergiAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="vergiTipi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="vergiTutar" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="vergiFaiz" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="bakanlikID" Type="Int32" />
+          <NavigationProperty Name="bakanlik" Relationship="bakanModel.FK_vergiler_bakanlik" FromRole="vergiler" ToRole="bakanlik" />
+          <NavigationProperty Name="vatandas" Relationship="bakanModel.FK_vatandas_vergiler" FromRole="vergiler" ToRole="vatandas" />
+        </EntityType>
+        <Association Name="FK_vergiler_bakanlik">
+          <End Type="bakanModel.bakanlik" Role="bakanlik" Multiplicity="0..1" />
+          <End Type="bakanModel.vergiler" Role="vergiler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bakanlik">
+              <PropertyRef Name="bakanlikID" />
+            </Principal>
+            <Dependent Role="vergiler">
+              <PropertyRef Name="bakanlikID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="vatandas">
+          <Key>
+            <PropertyRef Name="kisiNo" />
+          </Key>
+          <Property Name="kisiNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="kisiTC" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="KisiMeslek" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="KisiAdres" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="KisiTelefon" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="KisiMail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="vergiID" Type="Int32" />
+          <NavigationProperty Name="vergiler" Relationship="bakanModel.FK_vatandas_vergiler" FromRole="vatandas" ToRole="vergiler" />
+        </EntityType>
+        <Association Name="FK_vatandas_vergiler">
+          <End Type="bakanModel.vergiler" Role="vergiler" Multiplicity="0..1" />
+          <End Type="bakanModel.vatandas" Role="vatandas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="vergiler">
+              <PropertyRef Name="vergiID" />
+            </Principal>
+            <Dependent Role="vatandas">
+              <PropertyRef Name="vergiID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -452,31 +512,6 @@
                 <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="vatandas">
-            <EntityTypeMapping TypeName="bakanModel.vatandas">
-              <MappingFragment StoreEntitySet="vatandas">
-                <ScalarProperty Name="kisiNo" ColumnName="kisiNo" />
-                <ScalarProperty Name="kisiTC" ColumnName="kisiTC" />
-                <ScalarProperty Name="KisiMeslek" ColumnName="KisiMeslek" />
-                <ScalarProperty Name="KisiAdres" ColumnName="KisiAdres" />
-                <ScalarProperty Name="KisiTelefon" ColumnName="KisiTelefon" />
-                <ScalarProperty Name="KisiMail" ColumnName="KisiMail" />
-                <ScalarProperty Name="vergiID" ColumnName="vergiID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="vergiler">
-            <EntityTypeMapping TypeName="bakanModel.vergiler">
-              <MappingFragment StoreEntitySet="vergiler">
-                <ScalarProperty Name="vergiID" ColumnName="vergiID" />
-                <ScalarProperty Name="vergiAdi" ColumnName="vergiAdi" />
-                <ScalarProperty Name="vergiTipi" ColumnName="vergiTipi" />
-                <ScalarProperty Name="vergiTutar" ColumnName="vergiTutar" />
-                <ScalarProperty Name="vergiFaiz" ColumnName="vergiFaiz" />
-                <ScalarProperty Name="bakanlikID" ColumnName="bakanlikID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -600,6 +635,61 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="EmpLogins">
+            <EntityTypeMapping TypeName="bakanModel.EmpLogin">
+              <MappingFragment StoreEntitySet="EmpLogin">
+                <ScalarProperty Name="employeePassword" ColumnName="employeePassword" />
+                <ScalarProperty Name="employeeUser" ColumnName="employeeUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="cLogin" FunctionName="bakanModel.Store.cLogin">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="bakanModel.cLogin_Result">
+                <ScalarProperty Name="employeeUser" ColumnName="employeeUser" />
+                <ScalarProperty Name="employeePassword" ColumnName="employeePassword" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="kLogin" FunctionName="bakanModel.Store.kLogin">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="bakanModel.kLogin_Result">
+                <ScalarProperty Name="kisiNo" ColumnName="kisiNo" />
+                <ScalarProperty Name="kisiTC" ColumnName="kisiTC" />
+                <ScalarProperty Name="KisiMeslek" ColumnName="KisiMeslek" />
+                <ScalarProperty Name="KisiAdres" ColumnName="KisiAdres" />
+                <ScalarProperty Name="KisiTelefon" ColumnName="KisiTelefon" />
+                <ScalarProperty Name="KisiMail" ColumnName="KisiMail" />
+                <ScalarProperty Name="vergiID" ColumnName="vergiID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="vergilers">
+            <EntityTypeMapping TypeName="bakanModel.vergiler">
+              <MappingFragment StoreEntitySet="vergiler">
+                <ScalarProperty Name="bakanlikID" ColumnName="bakanlikID" />
+                <ScalarProperty Name="vergiFaiz" ColumnName="vergiFaiz" />
+                <ScalarProperty Name="vergiTutar" ColumnName="vergiTutar" />
+                <ScalarProperty Name="vergiTipi" ColumnName="vergiTipi" />
+                <ScalarProperty Name="vergiAdi" ColumnName="vergiAdi" />
+                <ScalarProperty Name="vergiID" ColumnName="vergiID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vatandas">
+            <EntityTypeMapping TypeName="bakanModel.vatandas">
+              <MappingFragment StoreEntitySet="vatandas">
+                <ScalarProperty Name="vergiID" ColumnName="vergiID" />
+                <ScalarProperty Name="KisiMail" ColumnName="KisiMail" />
+                <ScalarProperty Name="KisiTelefon" ColumnName="KisiTelefon" />
+                <ScalarProperty Name="KisiAdres" ColumnName="KisiAdres" />
+                <ScalarProperty Name="KisiMeslek" ColumnName="KisiMeslek" />
+                <ScalarProperty Name="kisiTC" ColumnName="kisiTC" />
+                <ScalarProperty Name="kisiNo" ColumnName="kisiNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="ciroBilgi" FunctionName="bakanModel.Store.ciroBilgi" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -614,7 +704,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

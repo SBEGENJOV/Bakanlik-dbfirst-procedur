@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Linq.Mapping;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -85,7 +87,7 @@ namespace Bakanlik
         private void simpleButton10_Click(object sender, EventArgs e)
         {
             vatandas emp = new vatandas();
-            emp.kisiTC = int.Parse(textBox10.Text);
+            emp.kisiTC = textBox10.Text;
             emp.KisiMeslek = textBox9.Text;
             emp.KisiAdres = textBox8.Text;
             emp.KisiTelefon = textBox7.Text;
@@ -100,7 +102,7 @@ namespace Bakanlik
         {
             vatandas emp = new vatandas();
             emp.kisiNo = int.Parse(textBox6.Text);
-            emp.kisiTC = int.Parse(textBox10.Text);
+            emp.kisiTC = textBox10.Text;
             emp.KisiMeslek = textBox9.Text;
             emp.KisiAdres = textBox8.Text;
             emp.KisiTelefon = textBox7.Text;
@@ -153,10 +155,41 @@ namespace Bakanlik
 
         private void label13_Click(object sender, EventArgs e)
         {
-            //vergiler emp = new vergiler();
-            //conn.bakanVergi();
-            //conn.SaveChanges();
-            dataGridView4.DataSource = conn.bcirosira().ToList();
+            
+        }
+
+        private void tabPage4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox13_TextChanged(object sender, EventArgs e)
+        {
+            dataGridView4.DataSource = conn.bakanList();
+            DataTable dataTable = new DataTable();
+            DataView dv = new DataView(dataTable); // dataTable, DataGridView'den veri kaynağı olarak kullanılan DataTable
+
+            // Eğer TextBox boşsa, tüm verileri göster
+            if (string.IsNullOrEmpty(textBox13.Text))
+            {
+                dv.RowFilter = string.Empty;
+            }
+            else
+            {
+                // Verileri TextBox'ta girilen metne göre filtrele
+                // Örneğin, "ColumnName LIKE '%arananMetin%'" şeklinde bir filtreleme yapabilirsiniz
+                // ColumnName, DataGridView'daki sütunun adını temsil eder
+                dv.RowFilter = string.Format(" bakanlikAdi LIKE '%{0}%'", textBox13.Text);
+            }
+
+            // DataGridView'in veri kaynağını filtrelenen DataView olarak ayarlayın
+            dataGridView4.DataSource = dv;
+
+        }
+
+        private void textBox13_Click(object sender, EventArgs e)
+        {
+            dataGridView4.DataSource=conn.bakanList();
         }
     }
 }
