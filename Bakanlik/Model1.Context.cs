@@ -385,6 +385,36 @@ namespace Bakanlik
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("ciroBilgi");
         }
+    
+        public virtual ObjectResult<bakver_Result> bakver()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<bakver_Result>("bakver");
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> bavgciro()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("bavgciro");
+        }
+    
+        public virtual ObjectResult<bmaxciro_Result> bmaxciro()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<bmaxciro_Result>("bmaxciro");
+        }
+    
+        public virtual ObjectResult<bmersay_Result> bmersay()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<bmersay_Result>("bmersay");
+        }
+    
+        public virtual ObjectResult<bminciro_Result> bminciro()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<bminciro_Result>("bminciro");
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> bsumciro()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("bsumciro");
+        }
 
         internal void vatandasAdd(string kisiTC, string kisiMeslek, string kisiAdres, string kisiTelefon, string kisiMail, int? vergiID)
         {

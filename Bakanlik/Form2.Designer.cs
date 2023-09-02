@@ -45,6 +45,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
             this.textBox9 = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
@@ -55,7 +56,6 @@
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -253,6 +253,14 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Kayıt Ol";
             // 
+            // maskedTextBox1
+            // 
+            this.maskedTextBox1.Location = new System.Drawing.Point(74, 295);
+            this.maskedTextBox1.Mask = "(999) 000-0000";
+            this.maskedTextBox1.Name = "maskedTextBox1";
+            this.maskedTextBox1.Size = new System.Drawing.Size(316, 33);
+            this.maskedTextBox1.TabIndex = 11;
+            // 
             // textBox9
             // 
             this.textBox9.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
@@ -307,7 +315,7 @@
             // button3
             // 
             this.button3.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.button3.Location = new System.Drawing.Point(58, 438);
+            this.button3.Location = new System.Drawing.Point(74, 440);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(316, 46);
             this.button3.TabIndex = 4;
@@ -354,14 +362,6 @@
             this.label9.Size = new System.Drawing.Size(44, 27);
             this.label9.TabIndex = 0;
             this.label9.Text = "TC:";
-            // 
-            // maskedTextBox1
-            // 
-            this.maskedTextBox1.Location = new System.Drawing.Point(74, 295);
-            this.maskedTextBox1.Mask = "(999) 000-0000";
-            this.maskedTextBox1.Name = "maskedTextBox1";
-            this.maskedTextBox1.Size = new System.Drawing.Size(316, 33);
-            this.maskedTextBox1.TabIndex = 11;
             // 
             // Form2
             // 

@@ -100,7 +100,13 @@ warning 6002: The table/view 'bakan.dbo.EmpLogin' does not have a primary key de
           <Parameter Name="BakanlikMerkez" Type="varchar" Mode="In" />
         </Function>
         <Function Name="bakanVergi" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="bakver" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="bavgciro" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="bcirosira" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="bmaxciro" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="bmersay" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="bminciro" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="bsumciro" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="ciroBilgi" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="cLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="employeeUser" Type="varchar" Mode="In" />
@@ -341,6 +347,12 @@ warning 6002: The table/view 'bakan.dbo.EmpLogin' does not have a primary key de
             <End Role="vatandas" EntitySet="vatandas" />
           </AssociationSet>
           <FunctionImport Name="ciroBilgi" ReturnType="Collection(Decimal)" />
+          <FunctionImport Name="bakver" ReturnType="Collection(bakanModel.bakver_Result)" />
+          <FunctionImport Name="bavgciro" ReturnType="Collection(Decimal)" />
+          <FunctionImport Name="bmaxciro" ReturnType="Collection(bakanModel.bmaxciro_Result)" />
+          <FunctionImport Name="bmersay" ReturnType="Collection(bakanModel.bmersay_Result)" />
+          <FunctionImport Name="bminciro" ReturnType="Collection(bakanModel.bminciro_Result)" />
+          <FunctionImport Name="bsumciro" ReturnType="Collection(Decimal)" />
         </EntityContainer>
         <ComplexType Name="bakanList_Result">
           <Property Type="Int32" Name="bakanlikID" Nullable="false" />
@@ -487,6 +499,28 @@ warning 6002: The table/view 'bakan.dbo.EmpLogin' does not have a primary key de
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="bakver_Result">
+          <Property Type="String" Name="bakanlikAdi" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Vergi_Sayısı" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="bmaxciro_Result">
+          <Property Type="Int32" Name="bakanlikID" Nullable="false" />
+          <Property Type="String" Name="bakanlikAdi" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="daireBaskani" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="bakanlikCiro" Nullable="true" Precision="19" />
+          <Property Type="String" Name="BakanlikMerkez" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="bmersay_Result">
+          <Property Type="String" Name="BakanlikMerkez" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Column1" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="bminciro_Result">
+          <Property Type="Int32" Name="bakanlikID" Nullable="false" />
+          <Property Type="String" Name="bakanlikAdi" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="daireBaskani" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="bakanlikCiro" Nullable="true" Precision="19" />
+          <Property Type="String" Name="BakanlikMerkez" Nullable="true" MaxLength="50" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -690,6 +724,46 @@ warning 6002: The table/view 'bakan.dbo.EmpLogin' does not have a primary key de
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="ciroBilgi" FunctionName="bakanModel.Store.ciroBilgi" />
+          <FunctionImportMapping FunctionImportName="bakver" FunctionName="bakanModel.Store.bakver">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="bakanModel.bakver_Result">
+                <ScalarProperty Name="bakanlikAdi" ColumnName="bakanlikAdi" />
+                <ScalarProperty Name="Vergi_Sayısı" ColumnName="Vergi Sayısı" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="bavgciro" FunctionName="bakanModel.Store.bavgciro" />
+          <FunctionImportMapping FunctionImportName="bmaxciro" FunctionName="bakanModel.Store.bmaxciro">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="bakanModel.bmaxciro_Result">
+                <ScalarProperty Name="bakanlikID" ColumnName="bakanlikID" />
+                <ScalarProperty Name="bakanlikAdi" ColumnName="bakanlikAdi" />
+                <ScalarProperty Name="daireBaskani" ColumnName="daireBaskani" />
+                <ScalarProperty Name="bakanlikCiro" ColumnName="bakanlikCiro" />
+                <ScalarProperty Name="BakanlikMerkez" ColumnName="BakanlikMerkez" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="bmersay" FunctionName="bakanModel.Store.bmersay">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="bakanModel.bmersay_Result">
+                <ScalarProperty Name="BakanlikMerkez" ColumnName="BakanlikMerkez" />
+                <ScalarProperty Name="Column1" ColumnName="Column1" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="bminciro" FunctionName="bakanModel.Store.bminciro">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="bakanModel.bminciro_Result">
+                <ScalarProperty Name="bakanlikID" ColumnName="bakanlikID" />
+                <ScalarProperty Name="bakanlikAdi" ColumnName="bakanlikAdi" />
+                <ScalarProperty Name="daireBaskani" ColumnName="daireBaskani" />
+                <ScalarProperty Name="bakanlikCiro" ColumnName="bakanlikCiro" />
+                <ScalarProperty Name="BakanlikMerkez" ColumnName="BakanlikMerkez" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="bsumciro" FunctionName="bakanModel.Store.bsumciro" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

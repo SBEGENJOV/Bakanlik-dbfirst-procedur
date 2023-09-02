@@ -165,31 +165,40 @@ namespace Bakanlik
 
         private void textBox13_TextChanged(object sender, EventArgs e)
         {
-            dataGridView4.DataSource = conn.bakanList();
-            DataTable dataTable = new DataTable();
-            DataView dv = new DataView(dataTable); // dataTable, DataGridView'den veri kaynağı olarak kullanılan DataTable
-
-            // Eğer TextBox boşsa, tüm verileri göster
-            if (string.IsNullOrEmpty(textBox13.Text))
-            {
-                dv.RowFilter = string.Empty;
-            }
-            else
-            {
-                // Verileri TextBox'ta girilen metne göre filtrele
-                // Örneğin, "ColumnName LIKE '%arananMetin%'" şeklinde bir filtreleme yapabilirsiniz
-                // ColumnName, DataGridView'daki sütunun adını temsil eder
-                dv.RowFilter = string.Format(" bakanlikAdi LIKE '%{0}%'", textBox13.Text);
-            }
-
-            // DataGridView'in veri kaynağını filtrelenen DataView olarak ayarlayın
-            dataGridView4.DataSource = dv;
-
+            
         }
 
         private void textBox13_Click(object sender, EventArgs e)
         {
             dataGridView4.DataSource=conn.bakanList();
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBox1.SelectedIndex==0)
+            {
+                dataGridView4.DataSource = conn.bmaxciro().ToList();
+            }
+            else if (comboBox1.SelectedIndex==1)
+            {
+                dataGridView4.DataSource = conn.bminciro().ToList();
+            }
+            else if (comboBox1.SelectedIndex == 2)
+            {
+                dataGridView4.DataSource = conn.bavgciro().ToList();
+            }
+            else if (comboBox1.SelectedIndex == 3)
+            {
+                dataGridView4.DataSource = conn.bsumciro().ToList();
+            }
+            else if (comboBox1.SelectedIndex == 4)
+            {
+                dataGridView4.DataSource = conn.bmersay().ToList();
+            }
+             else if (comboBox1.SelectedIndex == 5)
+            {
+                dataGridView4.DataSource = conn.bakver().ToList();
+            }
         }
     }
 }

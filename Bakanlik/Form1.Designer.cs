@@ -85,19 +85,19 @@
             this.label19 = new System.Windows.Forms.Label();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.dataGridView4 = new System.Windows.Forms.DataGridView();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.label21 = new System.Windows.Forms.Label();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
-            this.textBox13 = new System.Windows.Forms.TextBox();
-            this.label22 = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
-            this.textBox20 = new System.Windows.Forms.TextBox();
             this.label24 = new System.Windows.Forms.Label();
             this.textBox21 = new System.Windows.Forms.TextBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.textBox20 = new System.Windows.Forms.TextBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.textBox13 = new System.Windows.Forms.TextBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.dataGridView4 = new System.Windows.Forms.DataGridView();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -725,41 +725,86 @@
             this.tabPage4.UseVisualStyleBackColor = true;
             this.tabPage4.Click += new System.EventHandler(this.tabPage4_Click);
             // 
-            // dataGridView4
+            // label24
             // 
-            this.dataGridView4.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView4.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView4.Location = new System.Drawing.Point(294, 7);
-            this.dataGridView4.Name = "dataGridView4";
-            this.dataGridView4.RowHeadersWidth = 51;
-            this.dataGridView4.RowTemplate.Height = 24;
-            this.dataGridView4.Size = new System.Drawing.Size(671, 527);
-            this.dataGridView4.TabIndex = 0;
+            this.label24.AutoSize = true;
+            this.label24.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label24.Location = new System.Drawing.Point(14, 436);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(188, 27);
+            this.label24.TabIndex = 58;
+            this.label24.Text = "Vatandaş Ara(TC)";
             // 
-            // comboBox1
+            // textBox21
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "Bakanlık En Yüksek Ciro",
-            "Bakanlık En Düşük Ciro",
-            "Bakanlık Ciro Ortalama",
-            "Bakanlık Ciro Toplam",
-            "Bakanlık Merkez İL sayısı",
-            "Hangi Bakanlıkta Kaç vergi var"});
-            this.comboBox1.Location = new System.Drawing.Point(19, 70);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(240, 24);
-            this.comboBox1.TabIndex = 1;
+            this.textBox21.Font = new System.Drawing.Font("Microsoft YaHei", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.textBox21.Location = new System.Drawing.Point(19, 467);
+            this.textBox21.Multiline = true;
+            this.textBox21.Name = "textBox21";
+            this.textBox21.Size = new System.Drawing.Size(236, 39);
+            this.textBox21.TabIndex = 57;
             // 
-            // label13
+            // label23
             // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label13.Location = new System.Drawing.Point(18, 32);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(197, 27);
-            this.label13.TabIndex = 48;
-            this.label13.Text = "Bakanlık Raporları";
+            this.label23.AutoSize = true;
+            this.label23.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label23.Location = new System.Drawing.Point(13, 350);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(180, 27);
+            this.label23.TabIndex = 56;
+            this.label23.Text = "Vergi Ara(V:ADI)";
+            // 
+            // textBox20
+            // 
+            this.textBox20.Font = new System.Drawing.Font("Microsoft YaHei", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.textBox20.Location = new System.Drawing.Point(18, 387);
+            this.textBox20.Multiline = true;
+            this.textBox20.Name = "textBox20";
+            this.textBox20.Size = new System.Drawing.Size(236, 39);
+            this.textBox20.TabIndex = 55;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label22.Location = new System.Drawing.Point(13, 269);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(214, 27);
+            this.label22.TabIndex = 54;
+            this.label22.Text = "Bakanlık Ara(B.ADI)";
+            // 
+            // textBox13
+            // 
+            this.textBox13.Font = new System.Drawing.Font("Microsoft YaHei", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.textBox13.Location = new System.Drawing.Point(18, 306);
+            this.textBox13.Multiline = true;
+            this.textBox13.Name = "textBox13";
+            this.textBox13.Size = new System.Drawing.Size(236, 36);
+            this.textBox13.TabIndex = 53;
+            this.textBox13.Click += new System.EventHandler(this.textBox13_Click);
+            this.textBox13.TextChanged += new System.EventHandler(this.textBox13_TextChanged);
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label21.Location = new System.Drawing.Point(18, 177);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(203, 27);
+            this.label21.TabIndex = 52;
+            this.label21.Text = "Vatandaş Raporları";
+            // 
+            // comboBox3
+            // 
+            this.comboBox3.FormattingEnabled = true;
+            this.comboBox3.Items.AddRange(new object[] {
+            "Hangi meslekten kaç kişi var",
+            "Hangi ilden kaç kişi var",
+            "Kimin ne vergisi var"});
+            this.comboBox3.Location = new System.Drawing.Point(19, 215);
+            this.comboBox3.Name = "comboBox3";
+            this.comboBox3.Size = new System.Drawing.Size(240, 24);
+            this.comboBox3.TabIndex = 51;
             // 
             // label20
             // 
@@ -789,86 +834,42 @@
             this.comboBox2.Size = new System.Drawing.Size(240, 24);
             this.comboBox2.TabIndex = 49;
             // 
-            // label21
+            // label13
             // 
-            this.label21.AutoSize = true;
-            this.label21.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label21.Location = new System.Drawing.Point(18, 177);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(203, 27);
-            this.label21.TabIndex = 52;
-            this.label21.Text = "Vatandaş Raporları";
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label13.Location = new System.Drawing.Point(18, 32);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(197, 27);
+            this.label13.TabIndex = 48;
+            this.label13.Text = "Bakanlık Raporları";
             // 
-            // comboBox3
+            // comboBox1
             // 
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Items.AddRange(new object[] {
-            "Hangi meslekten kaç kişi var",
-            "Hangi ilden kaç kişi var",
-            "Kimin ne vergisi var"});
-            this.comboBox3.Location = new System.Drawing.Point(19, 215);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(240, 24);
-            this.comboBox3.TabIndex = 51;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "Bakanlık En Yüksek Ciro",
+            "Bakanlık En Düşük Ciro",
+            "Bakanlık Ciro Ortalama",
+            "Bakanlık Ciro Toplam",
+            "Bakanlık Merkez İL sayısı",
+            "Hangi Bakanlıkta Kaç vergi var"});
+            this.comboBox1.Location = new System.Drawing.Point(19, 70);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(240, 24);
+            this.comboBox1.TabIndex = 1;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
-            // textBox13
+            // dataGridView4
             // 
-            this.textBox13.Font = new System.Drawing.Font("Microsoft YaHei", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.textBox13.Location = new System.Drawing.Point(18, 306);
-            this.textBox13.Multiline = true;
-            this.textBox13.Name = "textBox13";
-            this.textBox13.Size = new System.Drawing.Size(236, 36);
-            this.textBox13.TabIndex = 53;
-            this.textBox13.Click += new System.EventHandler(this.textBox13_Click);
-            this.textBox13.TextChanged += new System.EventHandler(this.textBox13_TextChanged);
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label22.Location = new System.Drawing.Point(13, 269);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(214, 27);
-            this.label22.TabIndex = 54;
-            this.label22.Text = "Bakanlık Ara(B.ADI)";
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label23.Location = new System.Drawing.Point(13, 350);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(180, 27);
-            this.label23.TabIndex = 56;
-            this.label23.Text = "Vergi Ara(V:ADI)";
-            // 
-            // textBox20
-            // 
-            this.textBox20.Font = new System.Drawing.Font("Microsoft YaHei", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.textBox20.Location = new System.Drawing.Point(18, 387);
-            this.textBox20.Multiline = true;
-            this.textBox20.Name = "textBox20";
-            this.textBox20.Size = new System.Drawing.Size(236, 39);
-            this.textBox20.TabIndex = 55;
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label24.Location = new System.Drawing.Point(14, 436);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(188, 27);
-            this.label24.TabIndex = 58;
-            this.label24.Text = "Vatandaş Ara(TC)";
-            // 
-            // textBox21
-            // 
-            this.textBox21.Font = new System.Drawing.Font("Microsoft YaHei", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.textBox21.Location = new System.Drawing.Point(19, 467);
-            this.textBox21.Multiline = true;
-            this.textBox21.Name = "textBox21";
-            this.textBox21.Size = new System.Drawing.Size(236, 39);
-            this.textBox21.TabIndex = 57;
+            this.dataGridView4.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView4.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView4.Location = new System.Drawing.Point(294, 7);
+            this.dataGridView4.Name = "dataGridView4";
+            this.dataGridView4.RowHeadersWidth = 51;
+            this.dataGridView4.RowTemplate.Height = 24;
+            this.dataGridView4.Size = new System.Drawing.Size(671, 527);
+            this.dataGridView4.TabIndex = 0;
             // 
             // Form1
             // 
