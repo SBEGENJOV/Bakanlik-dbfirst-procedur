@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Data.Linq.Mapping;
 using System.Data.SqlClient;
 using System.Drawing;
@@ -162,10 +164,16 @@ namespace Bakanlik
         {
 
         }
-
+        SqlConnection con = new SqlConnection("Server=DESKTOP-5K7HMBT\\SQLEXPRESS;Database=bakan;Integrated Security=true;");
         private void textBox13_TextChanged(object sender, EventArgs e)
         {
-            
+            SqlDataAdapter adp = new SqlDataAdapter("bakanList", con);
+            adp.SelectCommand.CommandType = System.Data.CommandType.Text;
+            DataTable dt = new DataTable();
+            adp.Fill(dt);
+            DataView dv = dt.DefaultView;
+            dv.RowFilter = string.Format("bakanlikAdi LIKE '%{0}%'", textBox13.Text);
+            dataGridView4.DataSource = dv;
         }
 
         private void textBox13_Click(object sender, EventArgs e)
@@ -199,6 +207,94 @@ namespace Bakanlik
             {
                 dataGridView4.DataSource = conn.bakver().ToList();
             }
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBox2.SelectedIndex == 0)
+            {
+                dataGridView4.DataSource = conn.vmax().ToList();
+            }
+            else if (comboBox2.SelectedIndex == 1)
+            {
+                dataGridView4.DataSource = conn.vmin().ToList();
+            }
+            else if (comboBox2.SelectedIndex == 2)
+            {
+                dataGridView4.DataSource = conn.vsum().ToList();
+            }
+            else if (comboBox2.SelectedIndex == 3)
+            {
+                dataGridView4.DataSource = conn.vavg().ToList();
+            }
+            else if (comboBox2.SelectedIndex == 4)
+            {
+                dataGridView4.DataSource = conn.vfmax().ToList();
+            }
+            else if (comboBox2.SelectedIndex == 5)
+            {
+                dataGridView4.DataSource = conn.vfmin().ToList();
+            }
+            else if (comboBox2.SelectedIndex == 6)
+            {
+                dataGridView4.DataSource = conn.vfsum().ToList();
+            }
+            else if (comboBox2.SelectedIndex == 7)
+            {
+                dataGridView4.DataSource = conn.vfavg().ToList();
+            }
+            else if (comboBox2.SelectedIndex == 8)
+            {
+                dataGridView4.DataSource = conn.vb().ToList();
+            }
+        }
+
+        private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBox3.SelectedIndex == 0)
+            {
+                dataGridView4.DataSource = conn.vmes().ToList();
+            }
+            else if (comboBox3.SelectedIndex == 1)
+            {
+                dataGridView4.DataSource = conn.vil().ToList();
+            }
+            else if (comboBox3.SelectedIndex == 2)
+            {
+                dataGridView4.DataSource = conn.vwv().ToList();
+            }
+        }
+
+        private void textBox20_TextChanged(object sender, EventArgs e)
+        {
+            SqlDataAdapter adp = new SqlDataAdapter("vergilerList", con);
+            adp.SelectCommand.CommandType = System.Data.CommandType.Text;
+            DataTable dt = new DataTable();
+            adp.Fill(dt);
+            DataView dv = dt.DefaultView;
+            dv.RowFilter = string.Format("vergiAdi LIKE '%{0}%'", textBox20.Text);
+            dataGridView4.DataSource = dv;
+        }
+
+        private void textBox21_TextChanged(object sender, EventArgs e)
+        {
+            SqlDataAdapter adp = new SqlDataAdapter("vatandasList", con);
+            adp.SelectCommand.CommandType = System.Data.CommandType.Text;
+            DataTable dt = new DataTable();
+            adp.Fill(dt);
+            DataView dv = dt.DefaultView;
+            dv.RowFilter = string.Format("kisiTC LIKE '%{0}%'", textBox21.Text);
+            dataGridView4.DataSource = dv;
+        }
+
+        private void textBox20_Click(object sender, EventArgs e)
+        {
+            dataGridView4.DataSource = conn.vergilerList();
+        }
+
+        private void textBox21_Click(object sender, EventArgs e)
+        {
+            dataGridView4.DataSource = conn.vatandasList();
         }
     }
 }

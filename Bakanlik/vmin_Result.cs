@@ -11,14 +11,13 @@ namespace Bakanlik
 {
     using System;
     
-    public partial class vatandasList_Result
+    public partial class vmin_Result
     {
-        public int kisiNo { get; set; }
-        public string kisiTC { get; set; }
-        public string KisiMeslek { get; set; }
-        public string KisiAdres { get; set; }
-        public string KisiTelefon { get; set; }
-        public string KisiMail { get; set; }
-        public Nullable<int> vergiID { get; set; }
+        public int vergiID { get; set; }
+        public string vergiAdi { get; set; }
+        public string vergiTipi { get; set; }
+        public Nullable<decimal> vergiTutar { get; set; }
+        public Nullable<decimal> vergiFaiz { get; set; }
+        public Nullable<int> bakanlikID { get; set; }
     }
 }

@@ -168,6 +168,8 @@ warning 6002: The table/view 'bakan.dbo.EmpLogin' does not have a primary key de
           <Parameter Name="KisiMail" Type="varchar" Mode="In" />
           <Parameter Name="vergiID" Type="int" Mode="In" />
         </Function>
+        <Function Name="vavg" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="vb" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="vergiDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="vergiID" Type="int" Mode="In" />
         </Function>
@@ -187,7 +189,17 @@ warning 6002: The table/view 'bakan.dbo.EmpLogin' does not have a primary key de
           <Parameter Name="vergiFaiz" Type="money" Mode="In" />
           <Parameter Name="bakanlikID" Type="int" Mode="In" />
         </Function>
+        <Function Name="vfavg" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="vfmax" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="vfmin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="vfsum" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="vil" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="vmax" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="vmes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="vmin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="vsum" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="vv" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="vwv" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="bakanModelStoreContainer">
           <EntitySet Name="bakanlik" EntityType="Self.bakanlik" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
@@ -353,6 +365,18 @@ warning 6002: The table/view 'bakan.dbo.EmpLogin' does not have a primary key de
           <FunctionImport Name="bmersay" ReturnType="Collection(bakanModel.bmersay_Result)" />
           <FunctionImport Name="bminciro" ReturnType="Collection(bakanModel.bminciro_Result)" />
           <FunctionImport Name="bsumciro" ReturnType="Collection(Decimal)" />
+          <FunctionImport Name="vavg" ReturnType="Collection(Decimal)" />
+          <FunctionImport Name="vb" ReturnType="Collection(bakanModel.vb_Result)" />
+          <FunctionImport Name="vfavg" ReturnType="Collection(Decimal)" />
+          <FunctionImport Name="vfmax" ReturnType="Collection(bakanModel.vfmax_Result)" />
+          <FunctionImport Name="vfmin" ReturnType="Collection(bakanModel.vfmin_Result)" />
+          <FunctionImport Name="vfsum" ReturnType="Collection(Decimal)" />
+          <FunctionImport Name="vmax" ReturnType="Collection(bakanModel.vmax_Result)" />
+          <FunctionImport Name="vmin" ReturnType="Collection(bakanModel.vmin_Result)" />
+          <FunctionImport Name="vsum" ReturnType="Collection(Decimal)" />
+          <FunctionImport Name="vil" ReturnType="Collection(bakanModel.vil_Result)" />
+          <FunctionImport Name="vmes" ReturnType="Collection(bakanModel.vmes_Result)" />
+          <FunctionImport Name="vwv" ReturnType="Collection(bakanModel.vwv_Result)" />
         </EntityContainer>
         <ComplexType Name="bakanList_Result">
           <Property Type="Int32" Name="bakanlikID" Nullable="false" />
@@ -520,6 +544,54 @@ warning 6002: The table/view 'bakan.dbo.EmpLogin' does not have a primary key de
           <Property Type="String" Name="daireBaskani" Nullable="true" MaxLength="50" />
           <Property Type="Decimal" Name="bakanlikCiro" Nullable="true" Precision="19" />
           <Property Type="String" Name="BakanlikMerkez" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="vb_Result">
+          <Property Type="String" Name="bakanlikAdi" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="vergiAdi" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="vfmax_Result">
+          <Property Type="Int32" Name="vergiID" Nullable="false" />
+          <Property Type="String" Name="vergiAdi" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="vergiTipi" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="vergiTutar" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="vergiFaiz" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="bakanlikID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="vfmin_Result">
+          <Property Type="Int32" Name="vergiID" Nullable="false" />
+          <Property Type="String" Name="vergiAdi" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="vergiTipi" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="vergiTutar" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="vergiFaiz" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="bakanlikID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="vmax_Result">
+          <Property Type="Int32" Name="vergiID" Nullable="false" />
+          <Property Type="String" Name="vergiAdi" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="vergiTipi" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="vergiTutar" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="vergiFaiz" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="bakanlikID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="vmin_Result">
+          <Property Type="Int32" Name="vergiID" Nullable="false" />
+          <Property Type="String" Name="vergiAdi" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="vergiTipi" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="vergiTutar" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="vergiFaiz" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="bakanlikID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="vil_Result">
+          <Property Type="String" Name="KisiAdres" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Column1" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="vmes_Result">
+          <Property Type="String" Name="KisiMeslek" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Column1" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="vwv_Result">
+          <Property Type="String" Name="kisiTC" Nullable="true" MaxLength="11" />
+          <Property Type="String" Name="vergiAdi" Nullable="true" MaxLength="50" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -764,6 +836,90 @@ warning 6002: The table/view 'bakan.dbo.EmpLogin' does not have a primary key de
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="bsumciro" FunctionName="bakanModel.Store.bsumciro" />
+          <FunctionImportMapping FunctionImportName="vavg" FunctionName="bakanModel.Store.vavg" />
+          <FunctionImportMapping FunctionImportName="vb" FunctionName="bakanModel.Store.vb">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="bakanModel.vb_Result">
+                <ScalarProperty Name="bakanlikAdi" ColumnName="bakanlikAdi" />
+                <ScalarProperty Name="vergiAdi" ColumnName="vergiAdi" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="vfavg" FunctionName="bakanModel.Store.vfavg" />
+          <FunctionImportMapping FunctionImportName="vfmax" FunctionName="bakanModel.Store.vfmax">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="bakanModel.vfmax_Result">
+                <ScalarProperty Name="vergiID" ColumnName="vergiID" />
+                <ScalarProperty Name="vergiAdi" ColumnName="vergiAdi" />
+                <ScalarProperty Name="vergiTipi" ColumnName="vergiTipi" />
+                <ScalarProperty Name="vergiTutar" ColumnName="vergiTutar" />
+                <ScalarProperty Name="vergiFaiz" ColumnName="vergiFaiz" />
+                <ScalarProperty Name="bakanlikID" ColumnName="bakanlikID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="vfmin" FunctionName="bakanModel.Store.vfmin">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="bakanModel.vfmin_Result">
+                <ScalarProperty Name="vergiID" ColumnName="vergiID" />
+                <ScalarProperty Name="vergiAdi" ColumnName="vergiAdi" />
+                <ScalarProperty Name="vergiTipi" ColumnName="vergiTipi" />
+                <ScalarProperty Name="vergiTutar" ColumnName="vergiTutar" />
+                <ScalarProperty Name="vergiFaiz" ColumnName="vergiFaiz" />
+                <ScalarProperty Name="bakanlikID" ColumnName="bakanlikID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="vfsum" FunctionName="bakanModel.Store.vfsum" />
+          <FunctionImportMapping FunctionImportName="vmax" FunctionName="bakanModel.Store.vmax">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="bakanModel.vmax_Result">
+                <ScalarProperty Name="vergiID" ColumnName="vergiID" />
+                <ScalarProperty Name="vergiAdi" ColumnName="vergiAdi" />
+                <ScalarProperty Name="vergiTipi" ColumnName="vergiTipi" />
+                <ScalarProperty Name="vergiTutar" ColumnName="vergiTutar" />
+                <ScalarProperty Name="vergiFaiz" ColumnName="vergiFaiz" />
+                <ScalarProperty Name="bakanlikID" ColumnName="bakanlikID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="vmin" FunctionName="bakanModel.Store.vmin">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="bakanModel.vmin_Result">
+                <ScalarProperty Name="vergiID" ColumnName="vergiID" />
+                <ScalarProperty Name="vergiAdi" ColumnName="vergiAdi" />
+                <ScalarProperty Name="vergiTipi" ColumnName="vergiTipi" />
+                <ScalarProperty Name="vergiTutar" ColumnName="vergiTutar" />
+                <ScalarProperty Name="vergiFaiz" ColumnName="vergiFaiz" />
+                <ScalarProperty Name="bakanlikID" ColumnName="bakanlikID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="vsum" FunctionName="bakanModel.Store.vsum" />
+          <FunctionImportMapping FunctionImportName="vil" FunctionName="bakanModel.Store.vil">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="bakanModel.vil_Result">
+                <ScalarProperty Name="KisiAdres" ColumnName="KisiAdres" />
+                <ScalarProperty Name="Column1" ColumnName="Column1" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="vmes" FunctionName="bakanModel.Store.vmes">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="bakanModel.vmes_Result">
+                <ScalarProperty Name="KisiMeslek" ColumnName="KisiMeslek" />
+                <ScalarProperty Name="Column1" ColumnName="Column1" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="vwv" FunctionName="bakanModel.Store.vwv">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="bakanModel.vwv_Result">
+                <ScalarProperty Name="kisiTC" ColumnName="kisiTC" />
+                <ScalarProperty Name="vergiAdi" ColumnName="vergiAdi" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

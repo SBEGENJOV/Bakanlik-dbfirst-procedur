@@ -415,13 +415,73 @@ namespace Bakanlik
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("bsumciro");
         }
+    
+        public virtual ObjectResult<Nullable<decimal>> vavg()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("vavg");
+        }
+    
+        public virtual ObjectResult<vb_Result> vb()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<vb_Result>("vb");
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> vfavg()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("vfavg");
+        }
+    
+        public virtual ObjectResult<vfmax_Result> vfmax()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<vfmax_Result>("vfmax");
+        }
+    
+        public virtual ObjectResult<vfmin_Result> vfmin()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<vfmin_Result>("vfmin");
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> vfsum()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("vfsum");
+        }
+    
+        public virtual ObjectResult<vmax_Result> vmax()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<vmax_Result>("vmax");
+        }
+    
+        public virtual ObjectResult<vmin_Result> vmin()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<vmin_Result>("vmin");
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> vsum()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("vsum");
+        }
+    
+        public virtual ObjectResult<vil_Result> vil()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<vil_Result>("vil");
+        }
+    
+        public virtual ObjectResult<vmes_Result> vmes()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<vmes_Result>("vmes");
+        }
+    
+        public virtual ObjectResult<vwv_Result> vwv()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<vwv_Result>("vwv");
+        }
 
-        internal void vatandasAdd(string kisiTC, string kisiMeslek, string kisiAdres, string kisiTelefon, string kisiMail, int? vergiID)
+        internal void vatandasUpdate(int kisiNo, string kisiTC, string kisiMeslek, string kisiAdres, string kisiTelefon, string kisiMail, int? vergiID)
         {
             throw new NotImplementedException();
         }
 
-        internal void vatandasUpdate(int kisiNo, string kisiTC, string kisiMeslek, string kisiAdres, string kisiTelefon, string kisiMail, int? vergiID)
+        internal void vatandasAdd(string kisiTC, string kisiMeslek, string kisiAdres, string kisiTelefon, string kisiMail, int? vergiID)
         {
             throw new NotImplementedException();
         }

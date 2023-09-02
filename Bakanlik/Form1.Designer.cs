@@ -743,6 +743,8 @@
             this.textBox21.Name = "textBox21";
             this.textBox21.Size = new System.Drawing.Size(236, 39);
             this.textBox21.TabIndex = 57;
+            this.textBox21.Click += new System.EventHandler(this.textBox21_Click);
+            this.textBox21.TextChanged += new System.EventHandler(this.textBox21_TextChanged);
             // 
             // label23
             // 
@@ -762,6 +764,8 @@
             this.textBox20.Name = "textBox20";
             this.textBox20.Size = new System.Drawing.Size(236, 39);
             this.textBox20.TabIndex = 55;
+            this.textBox20.Click += new System.EventHandler(this.textBox20_Click);
+            this.textBox20.TextChanged += new System.EventHandler(this.textBox20_TextChanged);
             // 
             // label22
             // 
@@ -833,6 +837,7 @@
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(240, 24);
             this.comboBox2.TabIndex = 49;
+            this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
             // 
             // label13
             // 
