@@ -11,10 +11,10 @@ namespace Bakanlik
 {
     using System;
     
-    public partial class vatandasList_Result
+    public partial class vList_Result
     {
         public int kisiNo { get; set; }
-        public Nullable<int> kisiTC { get; set; }
+        public string kisiTC { get; set; }
         public string KisiMeslek { get; set; }
         public string KisiAdres { get; set; }
         public string KisiTelefon { get; set; }

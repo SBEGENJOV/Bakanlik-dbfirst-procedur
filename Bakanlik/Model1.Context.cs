@@ -475,6 +475,11 @@ namespace Bakanlik
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<vwv_Result>("vwv");
         }
+    
+        public virtual ObjectResult<vList_Result> vList()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<vList_Result>("vList");
+        }
 
         internal void vatandasUpdate(int kisiNo, string kisiTC, string kisiMeslek, string kisiAdres, string kisiTelefon, string kisiMail, int? vergiID)
         {

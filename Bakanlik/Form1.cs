@@ -74,7 +74,7 @@ namespace Bakanlik
 
         private void simpleButton12_Click(object sender, EventArgs e)
         {
-            dataGridView2.DataSource = conn.vatandasList().ToList();
+            dataGridView2.DataSource = conn.vList().ToList();
         }
 
         private void simpleButton9_Click(object sender, EventArgs e)
@@ -83,7 +83,7 @@ namespace Bakanlik
             emp.kisiNo = int.Parse(textBox6.Text);
             conn.vatandasDelete(emp.kisiNo);
             conn.SaveChanges();
-            dataGridView2.DataSource = conn.vatandasList().ToList();
+            dataGridView2.DataSource = conn.vList().ToList();
         }
 
         private void simpleButton10_Click(object sender, EventArgs e)
@@ -97,7 +97,7 @@ namespace Bakanlik
             emp.vergiID = int.Parse(textBox12.Text);
             conn.vatandasAdd(emp.kisiTC, emp.KisiMeslek, emp.KisiAdres, emp.KisiTelefon, emp.KisiMail, emp.vergiID);
             conn.SaveChanges();
-            dataGridView2.DataSource = conn.vatandasList().ToList();
+            dataGridView2.DataSource = conn.vList().ToList();
         }
 
         private void simpleButton11_Click(object sender, EventArgs e)
@@ -112,7 +112,7 @@ namespace Bakanlik
             emp.vergiID = int.Parse(textBox12.Text);
             conn.vatandasUpdate(emp.kisiNo,emp.kisiTC, emp.KisiMeslek, emp.KisiAdres, emp.KisiTelefon, emp.KisiMail, emp.vergiID);
             conn.SaveChanges();
-            dataGridView2.DataSource = conn.vatandasList().ToList();
+            dataGridView2.DataSource = conn.vList().ToList();
         }
 
         private void simpleButton8_Click(object sender, EventArgs e)
@@ -278,7 +278,7 @@ namespace Bakanlik
 
         private void textBox21_TextChanged(object sender, EventArgs e)
         {
-            SqlDataAdapter adp = new SqlDataAdapter("vatandasList", con);
+            SqlDataAdapter adp = new SqlDataAdapter("vList", con);
             adp.SelectCommand.CommandType = System.Data.CommandType.Text;
             DataTable dt = new DataTable();
             adp.Fill(dt);
@@ -294,7 +294,7 @@ namespace Bakanlik
 
         private void textBox21_Click(object sender, EventArgs e)
         {
-            dataGridView4.DataSource = conn.vatandasList();
+            dataGridView4.DataSource = conn.vList();
         }
     }
 }

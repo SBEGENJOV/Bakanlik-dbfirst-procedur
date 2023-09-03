@@ -194,6 +194,7 @@ warning 6002: The table/view 'bakan.dbo.EmpLogin' does not have a primary key de
         <Function Name="vfmin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="vfsum" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="vil" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="vList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="vmax" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="vmes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="vmin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
@@ -377,6 +378,7 @@ warning 6002: The table/view 'bakan.dbo.EmpLogin' does not have a primary key de
           <FunctionImport Name="vil" ReturnType="Collection(bakanModel.vil_Result)" />
           <FunctionImport Name="vmes" ReturnType="Collection(bakanModel.vmes_Result)" />
           <FunctionImport Name="vwv" ReturnType="Collection(bakanModel.vwv_Result)" />
+          <FunctionImport Name="vList" ReturnType="Collection(bakanModel.vList_Result)" />
         </EntityContainer>
         <ComplexType Name="bakanList_Result">
           <Property Type="Int32" Name="bakanlikID" Nullable="false" />
@@ -592,6 +594,15 @@ warning 6002: The table/view 'bakan.dbo.EmpLogin' does not have a primary key de
         <ComplexType Name="vwv_Result">
           <Property Type="String" Name="kisiTC" Nullable="true" MaxLength="11" />
           <Property Type="String" Name="vergiAdi" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="vList_Result">
+          <Property Type="Int32" Name="kisiNo" Nullable="false" />
+          <Property Type="String" Name="kisiTC" Nullable="true" MaxLength="11" />
+          <Property Type="String" Name="KisiMeslek" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="KisiAdres" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="KisiTelefon" Nullable="true" MaxLength="11" />
+          <Property Type="String" Name="KisiMail" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="vergiID" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -917,6 +928,19 @@ warning 6002: The table/view 'bakan.dbo.EmpLogin' does not have a primary key de
               <ComplexTypeMapping TypeName="bakanModel.vwv_Result">
                 <ScalarProperty Name="kisiTC" ColumnName="kisiTC" />
                 <ScalarProperty Name="vergiAdi" ColumnName="vergiAdi" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="vList" FunctionName="bakanModel.Store.vList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="bakanModel.vList_Result">
+                <ScalarProperty Name="kisiNo" ColumnName="kisiNo" />
+                <ScalarProperty Name="kisiTC" ColumnName="kisiTC" />
+                <ScalarProperty Name="KisiMeslek" ColumnName="KisiMeslek" />
+                <ScalarProperty Name="KisiAdres" ColumnName="KisiAdres" />
+                <ScalarProperty Name="KisiTelefon" ColumnName="KisiTelefon" />
+                <ScalarProperty Name="KisiMail" ColumnName="KisiMail" />
+                <ScalarProperty Name="vergiID" ColumnName="vergiID" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
