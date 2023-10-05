@@ -15,10 +15,10 @@ namespace Bakanlik
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class bakanEntities : DbContext
+    public partial class bakanEntities3 : DbContext
     {
-        public bakanEntities()
-            : base("name=bakanEntities")
+        public bakanEntities3()
+            : base("name=bakanEntities3")
         {
         }
     
@@ -29,9 +29,9 @@ namespace Bakanlik
     
         public virtual DbSet<bakanlik> bakanlik { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
-        public virtual DbSet<EmpLogin> EmpLogins { get; set; }
-        public virtual DbSet<vergiler> vergilers { get; set; }
         public virtual DbSet<vatandas> vatandas { get; set; }
+        public virtual DbSet<vergiler> vergiler { get; set; }
+        public virtual DbSet<EmpLogin> EmpLogin { get; set; }
     
         public virtual int bakanAdd(string bakanlikAdi, string daireBaskani, Nullable<decimal> bakanlikCiro, string bakanlikMerkez)
         {
@@ -91,6 +91,77 @@ namespace Bakanlik
                 new ObjectParameter("BakanlikMerkez", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("bakanUpdate", bakanlikIDParameter, bakanlikAdiParameter, daireBaskaniParameter, bakanlikCiroParameter, bakanlikMerkezParameter);
+        }
+    
+        public virtual ObjectResult<bakanVergi_Result> bakanVergi()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<bakanVergi_Result>("bakanVergi");
+        }
+    
+        public virtual ObjectResult<bakver_Result> bakver()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<bakver_Result>("bakver");
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> bavgciro()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("bavgciro");
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> bcirosira()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("bcirosira");
+        }
+    
+        public virtual ObjectResult<bmaxciro_Result> bmaxciro()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<bmaxciro_Result>("bmaxciro");
+        }
+    
+        public virtual ObjectResult<bmersay_Result> bmersay()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<bmersay_Result>("bmersay");
+        }
+    
+        public virtual ObjectResult<bminciro_Result> bminciro()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<bminciro_Result>("bminciro");
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> bsumciro()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("bsumciro");
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> ciroBilgi()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("ciroBilgi");
+        }
+    
+        public virtual ObjectResult<cLogin_Result> cLogin(string employeeUser, string employeePassword)
+        {
+            var employeeUserParameter = employeeUser != null ?
+                new ObjectParameter("employeeUser", employeeUser) :
+                new ObjectParameter("employeeUser", typeof(string));
+    
+            var employeePasswordParameter = employeePassword != null ?
+                new ObjectParameter("employeePassword", employeePassword) :
+                new ObjectParameter("employeePassword", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<cLogin_Result>("cLogin", employeeUserParameter, employeePasswordParameter);
+        }
+    
+        public virtual ObjectResult<kLogin_Result> kLogin(string kisiTelefon, string kisiTC)
+        {
+            var kisiTelefonParameter = kisiTelefon != null ?
+                new ObjectParameter("KisiTelefon", kisiTelefon) :
+                new ObjectParameter("KisiTelefon", typeof(string));
+    
+            var kisiTCParameter = kisiTC != null ?
+                new ObjectParameter("kisiTC", kisiTC) :
+                new ObjectParameter("kisiTC", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<kLogin_Result>("kLogin", kisiTelefonParameter, kisiTCParameter);
         }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
@@ -196,11 +267,11 @@ namespace Bakanlik
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
         }
     
-        public virtual int vatandasAdd(Nullable<int> kisiTC, string kisiMeslek, string kisiAdres, string kisiTelefon, string kisiMail, Nullable<int> vergiID)
+        public virtual int vatandasAdd(string kisiTC, string kisiMeslek, string kisiAdres, string kisiTelefon, string kisiMail, Nullable<int> vergiID)
         {
-            var kisiTCParameter = kisiTC.HasValue ?
+            var kisiTCParameter = kisiTC != null ?
                 new ObjectParameter("kisiTC", kisiTC) :
-                new ObjectParameter("kisiTC", typeof(int));
+                new ObjectParameter("kisiTC", typeof(string));
     
             var kisiMeslekParameter = kisiMeslek != null ?
                 new ObjectParameter("KisiMeslek", kisiMeslek) :
@@ -239,15 +310,15 @@ namespace Bakanlik
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<vatandasList_Result>("vatandasList");
         }
     
-        public virtual int vatandasUpdate(Nullable<int> kisiNo, Nullable<int> kisiTC, string kisiMeslek, string kisiAdres, string kisiTelefon, string kisiMail, Nullable<int> vergiID)
+        public virtual int vatandasUpdate(Nullable<int> kisiNo, string kisiTC, string kisiMeslek, string kisiAdres, string kisiTelefon, string kisiMail, Nullable<int> vergiID)
         {
             var kisiNoParameter = kisiNo.HasValue ?
                 new ObjectParameter("kisiNo", kisiNo) :
                 new ObjectParameter("kisiNo", typeof(int));
     
-            var kisiTCParameter = kisiTC.HasValue ?
+            var kisiTCParameter = kisiTC != null ?
                 new ObjectParameter("kisiTC", kisiTC) :
-                new ObjectParameter("kisiTC", typeof(int));
+                new ObjectParameter("kisiTC", typeof(string));
     
             var kisiMeslekParameter = kisiMeslek != null ?
                 new ObjectParameter("KisiMeslek", kisiMeslek) :
@@ -270,6 +341,16 @@ namespace Bakanlik
                 new ObjectParameter("vergiID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("vatandasUpdate", kisiNoParameter, kisiTCParameter, kisiMeslekParameter, kisiAdresParameter, kisiTelefonParameter, kisiMailParameter, vergiIDParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> vavg()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("vavg");
+        }
+    
+        public virtual ObjectResult<vb_Result> vb()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<vb_Result>("vb");
         }
     
         public virtual int vergiDelete(Nullable<int> vergiID)
@@ -340,92 +421,6 @@ namespace Bakanlik
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("vergilerUpdate", vergiIDParameter, vergiAdiParameter, vergiTipiParameter, vergiTutarParameter, vergiFaizParameter, bakanlikIDParameter);
         }
     
-        public virtual ObjectResult<bakanVergi_Result> bakanVergi()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<bakanVergi_Result>("bakanVergi");
-        }
-    
-        public virtual ObjectResult<vv_Result> vv()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<vv_Result>("vv");
-        }
-    
-        public virtual ObjectResult<bcirosira_Result> bcirosira()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<bcirosira_Result>("bcirosira");
-        }
-    
-        public virtual ObjectResult<cLogin_Result> cLogin(string employeeUser, string employeePassword)
-        {
-            var employeeUserParameter = employeeUser != null ?
-                new ObjectParameter("employeeUser", employeeUser) :
-                new ObjectParameter("employeeUser", typeof(string));
-    
-            var employeePasswordParameter = employeePassword != null ?
-                new ObjectParameter("employeePassword", employeePassword) :
-                new ObjectParameter("employeePassword", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<cLogin_Result>("cLogin", employeeUserParameter, employeePasswordParameter);
-        }
-    
-        public virtual ObjectResult<kLogin_Result> kLogin(string kisiTelefon, Nullable<int> kisiTC)
-        {
-            var kisiTelefonParameter = kisiTelefon != null ?
-                new ObjectParameter("KisiTelefon", kisiTelefon) :
-                new ObjectParameter("KisiTelefon", typeof(string));
-    
-            var kisiTCParameter = kisiTC.HasValue ?
-                new ObjectParameter("kisiTC", kisiTC) :
-                new ObjectParameter("kisiTC", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<kLogin_Result>("kLogin", kisiTelefonParameter, kisiTCParameter);
-        }
-    
-        public virtual ObjectResult<Nullable<decimal>> ciroBilgi()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("ciroBilgi");
-        }
-    
-        public virtual ObjectResult<bakver_Result> bakver()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<bakver_Result>("bakver");
-        }
-    
-        public virtual ObjectResult<Nullable<decimal>> bavgciro()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("bavgciro");
-        }
-    
-        public virtual ObjectResult<bmaxciro_Result> bmaxciro()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<bmaxciro_Result>("bmaxciro");
-        }
-    
-        public virtual ObjectResult<bmersay_Result> bmersay()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<bmersay_Result>("bmersay");
-        }
-    
-        public virtual ObjectResult<bminciro_Result> bminciro()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<bminciro_Result>("bminciro");
-        }
-    
-        public virtual ObjectResult<Nullable<decimal>> bsumciro()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("bsumciro");
-        }
-    
-        public virtual ObjectResult<Nullable<decimal>> vavg()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("vavg");
-        }
-    
-        public virtual ObjectResult<vb_Result> vb()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<vb_Result>("vb");
-        }
-    
         public virtual ObjectResult<Nullable<decimal>> vfavg()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("vfavg");
@@ -446,9 +441,24 @@ namespace Bakanlik
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("vfsum");
         }
     
+        public virtual ObjectResult<vil_Result> vil()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<vil_Result>("vil");
+        }
+    
+        public virtual ObjectResult<vList_Result> vList()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<vList_Result>("vList");
+        }
+    
         public virtual ObjectResult<vmax_Result> vmax()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<vmax_Result>("vmax");
+        }
+    
+        public virtual ObjectResult<vmes_Result> vmes()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<vmes_Result>("vmes");
         }
     
         public virtual ObjectResult<vmin_Result> vmin()
@@ -461,34 +471,14 @@ namespace Bakanlik
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("vsum");
         }
     
-        public virtual ObjectResult<vil_Result> vil()
+        public virtual ObjectResult<vv_Result> vv()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<vil_Result>("vil");
-        }
-    
-        public virtual ObjectResult<vmes_Result> vmes()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<vmes_Result>("vmes");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<vv_Result>("vv");
         }
     
         public virtual ObjectResult<vwv_Result> vwv()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<vwv_Result>("vwv");
-        }
-    
-        public virtual ObjectResult<vList_Result> vList()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<vList_Result>("vList");
-        }
-
-        internal void vatandasUpdate(int kisiNo, string kisiTC, string kisiMeslek, string kisiAdres, string kisiTelefon, string kisiMail, int? vergiID)
-        {
-            throw new NotImplementedException();
-        }
-
-        internal void vatandasAdd(string kisiTC, string kisiMeslek, string kisiAdres, string kisiTelefon, string kisiMail, int? vergiID)
-        {
-            throw new NotImplementedException();
         }
     }
 }

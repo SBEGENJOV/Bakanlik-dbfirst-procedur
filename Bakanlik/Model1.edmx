@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="bakanModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="bakanModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="bakanlik">
           <Key>
             <PropertyRef Name="bakanlikID" />
@@ -115,7 +115,7 @@ warning 6002: The table/view 'bakan.dbo.EmpLogin' does not have a primary key de
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
         <Function Name="kLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="KisiTelefon" Type="varchar" Mode="In" />
-          <Parameter Name="kisiTC" Type="int" Mode="In" />
+          <Parameter Name="kisiTC" Type="varchar" Mode="In" />
         </Function>
         <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
@@ -148,7 +148,7 @@ warning 6002: The table/view 'bakan.dbo.EmpLogin' does not have a primary key de
         </Function>
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="vatandasAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="kisiTC" Type="int" Mode="In" />
+          <Parameter Name="kisiTC" Type="char" Mode="In" />
           <Parameter Name="KisiMeslek" Type="varchar" Mode="In" />
           <Parameter Name="KisiAdres" Type="varchar" Mode="In" />
           <Parameter Name="KisiTelefon" Type="varchar" Mode="In" />
@@ -161,7 +161,7 @@ warning 6002: The table/view 'bakan.dbo.EmpLogin' does not have a primary key de
         <Function Name="vatandasList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="vatandasUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="kisiNo" Type="int" Mode="In" />
-          <Parameter Name="kisiTC" Type="int" Mode="In" />
+          <Parameter Name="kisiTC" Type="char" Mode="In" />
           <Parameter Name="KisiMeslek" Type="varchar" Mode="In" />
           <Parameter Name="KisiAdres" Type="varchar" Mode="In" />
           <Parameter Name="KisiTelefon" Type="varchar" Mode="In" />
@@ -221,7 +221,8 @@ warning 6002: The table/view 'bakan.dbo.EmpLogin' does not have a primary key de
             <End Role="vergiler" EntitySet="vergiler" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="bakanModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -234,7 +235,6 @@ warning 6002: The table/view 'bakan.dbo.EmpLogin' does not have a primary key de
           <Property Name="daireBaskani" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="bakanlikCiro" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="BakanlikMerkez" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="vergilers" Relationship="bakanModel.FK_vergiler_bakanlik" FromRole="bakanlik" ToRole="vergiler" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -246,9 +246,75 @@ warning 6002: The table/view 'bakan.dbo.EmpLogin' does not have a primary key de
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
-        <EntityContainer Name="bakanEntities" annotation:LazyLoadingEnabled="true">
+        <EntityType Name="vatandas">
+          <Key>
+            <PropertyRef Name="kisiNo" />
+          </Key>
+          <Property Name="kisiNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="kisiTC" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="KisiMeslek" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="KisiAdres" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="KisiTelefon" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="KisiMail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="vergiID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="vergiler">
+          <Key>
+            <PropertyRef Name="vergiID" />
+          </Key>
+          <Property Name="vergiID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="vergiAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="vergiTipi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="vergiTutar" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="vergiFaiz" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="bakanlikID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="EmpLogin">
+          <Key>
+            <PropertyRef Name="employeeUser" />
+            <PropertyRef Name="employeePassword" />
+          </Key>
+          <Property Name="employeeUser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="employeePassword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_vergiler_bakanlik">
+          <End Role="bakanlik" Type="Self.bakanlik" Multiplicity="0..1" />
+          <End Role="vergiler" Type="Self.vergiler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bakanlik">
+              <PropertyRef Name="bakanlikID" />
+            </Principal>
+            <Dependent Role="vergiler">
+              <PropertyRef Name="bakanlikID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_vatandas_vergiler">
+          <End Role="vergiler" Type="Self.vergiler" Multiplicity="0..1" />
+          <End Role="vatandas" Type="Self.vatandas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="vergiler">
+              <PropertyRef Name="vergiID" />
+            </Principal>
+            <Dependent Role="vatandas">
+              <PropertyRef Name="vergiID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="bakanEntities3" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="bakanlik" EntityType="Self.bakanlik" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="vatandas" EntityType="Self.vatandas" />
+          <EntitySet Name="vergiler" EntityType="Self.vergiler" />
+          <EntitySet Name="EmpLogin" EntityType="Self.EmpLogin" />
+          <AssociationSet Name="FK_vergiler_bakanlik" Association="Self.FK_vergiler_bakanlik">
+            <End Role="bakanlik" EntitySet="bakanlik" />
+            <End Role="vergiler" EntitySet="vergiler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_vatandas_vergiler" Association="Self.FK_vatandas_vergiler">
+            <End Role="vergiler" EntitySet="vergiler" />
+            <End Role="vatandas" EntitySet="vatandas" />
+          </AssociationSet>
           <FunctionImport Name="bakanAdd">
             <Parameter Name="bakanlikAdi" Mode="In" Type="String" />
             <Parameter Name="daireBaskani" Mode="In" Type="String" />
@@ -256,7 +322,7 @@ warning 6002: The table/view 'bakan.dbo.EmpLogin' does not have a primary key de
             <Parameter Name="BakanlikMerkez" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="bakanDelete">
-          <Parameter Name="bakanlikID" Mode="In" Type="Int32" />
+            <Parameter Name="bakanlikID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="bakanList" ReturnType="Collection(bakanModel.bakanList_Result)" />
           <FunctionImport Name="bakanUpdate">
@@ -265,6 +331,23 @@ warning 6002: The table/view 'bakan.dbo.EmpLogin' does not have a primary key de
             <Parameter Name="daireBaskani" Mode="In" Type="String" />
             <Parameter Name="bakanlikCiro" Mode="In" Type="Decimal" />
             <Parameter Name="BakanlikMerkez" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="bakanVergi" ReturnType="Collection(bakanModel.bakanVergi_Result)" />
+          <FunctionImport Name="bakver" ReturnType="Collection(bakanModel.bakver_Result)" />
+          <FunctionImport Name="bavgciro" ReturnType="Collection(Decimal)" />
+          <FunctionImport Name="bcirosira" ReturnType="Collection(Decimal)" />
+          <FunctionImport Name="bmaxciro" ReturnType="Collection(bakanModel.bmaxciro_Result)" />
+          <FunctionImport Name="bmersay" ReturnType="Collection(bakanModel.bmersay_Result)" />
+          <FunctionImport Name="bminciro" ReturnType="Collection(bakanModel.bminciro_Result)" />
+          <FunctionImport Name="bsumciro" ReturnType="Collection(Decimal)" />
+          <FunctionImport Name="ciroBilgi" ReturnType="Collection(Decimal)" />
+          <FunctionImport Name="cLogin" ReturnType="Collection(bakanModel.cLogin_Result)">
+            <Parameter Name="employeeUser" Mode="In" Type="String" />
+            <Parameter Name="employeePassword" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="kLogin" ReturnType="Collection(bakanModel.kLogin_Result)">
+            <Parameter Name="KisiTelefon" Mode="In" Type="String" />
+            <Parameter Name="kisiTC" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_alterdiagram">
             <Parameter Name="diagramname" Mode="In" Type="String" />
@@ -297,7 +380,7 @@ warning 6002: The table/view 'bakan.dbo.EmpLogin' does not have a primary key de
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
           <FunctionImport Name="vatandasAdd">
-            <Parameter Name="kisiTC" Mode="In" Type="Int32" />
+            <Parameter Name="kisiTC" Mode="In" Type="String" />
             <Parameter Name="KisiMeslek" Mode="In" Type="String" />
             <Parameter Name="KisiAdres" Mode="In" Type="String" />
             <Parameter Name="KisiTelefon" Mode="In" Type="String" />
@@ -305,20 +388,22 @@ warning 6002: The table/view 'bakan.dbo.EmpLogin' does not have a primary key de
             <Parameter Name="vergiID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="vatandasDelete">
-          <Parameter Name="kisiNo" Mode="In" Type="Int32" />
+            <Parameter Name="kisiNo" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="vatandasList" ReturnType="Collection(bakanModel.vatandasList_Result)" />
           <FunctionImport Name="vatandasUpdate">
             <Parameter Name="kisiNo" Mode="In" Type="Int32" />
-            <Parameter Name="kisiTC" Mode="In" Type="Int32" />
+            <Parameter Name="kisiTC" Mode="In" Type="String" />
             <Parameter Name="KisiMeslek" Mode="In" Type="String" />
             <Parameter Name="KisiAdres" Mode="In" Type="String" />
             <Parameter Name="KisiTelefon" Mode="In" Type="String" />
             <Parameter Name="KisiMail" Mode="In" Type="String" />
             <Parameter Name="vergiID" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="vavg" ReturnType="Collection(Decimal)" />
+          <FunctionImport Name="vb" ReturnType="Collection(bakanModel.vb_Result)" />
           <FunctionImport Name="vergiDelete">
-          <Parameter Name="vergiID" Mode="In" Type="Int32" />
+            <Parameter Name="vergiID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="vergilerAdd">
             <Parameter Name="vergiAdi" Mode="In" Type="String" />
@@ -336,49 +421,18 @@ warning 6002: The table/view 'bakan.dbo.EmpLogin' does not have a primary key de
             <Parameter Name="vergiFaiz" Mode="In" Type="Decimal" />
             <Parameter Name="bakanlikID" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="bakanVergi" ReturnType="Collection(bakanModel.bakanVergi_Result)" />
-          <FunctionImport Name="vv" ReturnType="Collection(bakanModel.vv_Result)" >
-          </FunctionImport>
-          <FunctionImport Name="bcirosira" ReturnType="Collection(bakanModel.bcirosira_Result)" />
-          <EntitySet Name="EmpLogins" EntityType="bakanModel.EmpLogin" />
-          <FunctionImport Name="cLogin" ReturnType="Collection(bakanModel.cLogin_Result)">
-            <Parameter Name="employeeUser" Mode="In" Type="String" />
-            <Parameter Name="employeePassword" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="kLogin" ReturnType="Collection(bakanModel.kLogin_Result)">
-            <Parameter Name="KisiTelefon" Mode="In" Type="String" />
-            <Parameter Name="kisiTC" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <EntitySet Name="vergilers" EntityType="bakanModel.vergiler" />
-          <AssociationSet Name="FK_vergiler_bakanlik" Association="bakanModel.FK_vergiler_bakanlik">
-            <End Role="bakanlik" EntitySet="bakanlik" />
-            <End Role="vergiler" EntitySet="vergilers" />
-          </AssociationSet>
-          <EntitySet Name="vatandas" EntityType="bakanModel.vatandas" />
-          <AssociationSet Name="FK_vatandas_vergiler" Association="bakanModel.FK_vatandas_vergiler">
-            <End Role="vergiler" EntitySet="vergilers" />
-            <End Role="vatandas" EntitySet="vatandas" />
-          </AssociationSet>
-          <FunctionImport Name="ciroBilgi" ReturnType="Collection(Decimal)" />
-          <FunctionImport Name="bakver" ReturnType="Collection(bakanModel.bakver_Result)" />
-          <FunctionImport Name="bavgciro" ReturnType="Collection(Decimal)" />
-          <FunctionImport Name="bmaxciro" ReturnType="Collection(bakanModel.bmaxciro_Result)" />
-          <FunctionImport Name="bmersay" ReturnType="Collection(bakanModel.bmersay_Result)" />
-          <FunctionImport Name="bminciro" ReturnType="Collection(bakanModel.bminciro_Result)" />
-          <FunctionImport Name="bsumciro" ReturnType="Collection(Decimal)" />
-          <FunctionImport Name="vavg" ReturnType="Collection(Decimal)" />
-          <FunctionImport Name="vb" ReturnType="Collection(bakanModel.vb_Result)" />
           <FunctionImport Name="vfavg" ReturnType="Collection(Decimal)" />
           <FunctionImport Name="vfmax" ReturnType="Collection(bakanModel.vfmax_Result)" />
           <FunctionImport Name="vfmin" ReturnType="Collection(bakanModel.vfmin_Result)" />
           <FunctionImport Name="vfsum" ReturnType="Collection(Decimal)" />
+          <FunctionImport Name="vil" ReturnType="Collection(bakanModel.vil_Result)" />
+          <FunctionImport Name="vList" ReturnType="Collection(bakanModel.vList_Result)" />
           <FunctionImport Name="vmax" ReturnType="Collection(bakanModel.vmax_Result)" />
+          <FunctionImport Name="vmes" ReturnType="Collection(bakanModel.vmes_Result)" />
           <FunctionImport Name="vmin" ReturnType="Collection(bakanModel.vmin_Result)" />
           <FunctionImport Name="vsum" ReturnType="Collection(Decimal)" />
-          <FunctionImport Name="vil" ReturnType="Collection(bakanModel.vil_Result)" />
-          <FunctionImport Name="vmes" ReturnType="Collection(bakanModel.vmes_Result)" />
+          <FunctionImport Name="vv" ReturnType="Collection(bakanModel.vv_Result)" />
           <FunctionImport Name="vwv" ReturnType="Collection(bakanModel.vwv_Result)" />
-          <FunctionImport Name="vList" ReturnType="Collection(bakanModel.vList_Result)" />
         </EntityContainer>
         <ComplexType Name="bakanList_Result">
           <Property Type="Int32" Name="bakanlikID" Nullable="false" />
@@ -386,34 +440,6 @@ warning 6002: The table/view 'bakan.dbo.EmpLogin' does not have a primary key de
           <Property Type="String" Name="daireBaskani" Nullable="true" MaxLength="50" />
           <Property Type="Decimal" Name="bakanlikCiro" Nullable="true" Precision="19" />
           <Property Type="String" Name="BakanlikMerkez" Nullable="true" MaxLength="50" />
-        </ComplexType>
-        <ComplexType Name="sp_helpdiagramdefinition_Result">
-          <Property Type="Int32" Name="version" Nullable="true" />
-          <Property Type="Binary" Name="definition" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="sp_helpdiagrams_Result">
-          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
-          <Property Type="Int32" Name="ID" Nullable="false" />
-          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
-          <Property Type="Int32" Name="OwnerID" Nullable="false" />
-        </ComplexType>
-        <ComplexType Name="vatandasList_Result">
-          <Property Type="Int32" Name="kisiNo" Nullable="false" />
-          <Property Type="Int32" Name="kisiTC" Nullable="true" />
-          <Property Type="String" Name="KisiMeslek" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="KisiAdres" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="KisiTelefon" Nullable="true" MaxLength="11" />
-          <Property Type="String" Name="KisiMail" Nullable="true" MaxLength="50" />
-          <Property Type="Int32" Name="vergiID" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="vergilerList_Result">
-          <Property Type="Int32" Name="vergiID" Nullable="false" />
-          <Property Type="String" Name="vergiAdi" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="vergiTipi" Nullable="true" MaxLength="50" />
-          <Property Type="Decimal" Name="vergiTutar" Nullable="true" Precision="19" />
-          <Property Type="Decimal" Name="vergiFaiz" Nullable="true" Precision="19" />
-          <Property Type="Int32" Name="bakanlikID" Nullable="true" />
         </ComplexType>
         <ComplexType Name="bakanVergi_Result">
           <Property Type="Int32" Name="bakanlikID" Nullable="false" />
@@ -434,97 +460,6 @@ warning 6002: The table/view 'bakan.dbo.EmpLogin' does not have a primary key de
           <Property Type="Decimal" Name="vergiFaiz1" Nullable="true" Precision="19" />
           <Property Type="Int32" Name="bakanlikID2" Nullable="true" />
         </ComplexType>
-        <ComplexType Name="vv_Result">
-          <Property Type="Int32" Name="bakanlikID" Nullable="false" />
-          <Property Type="String" Name="bakanlikAdi" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="daireBaskani" Nullable="true" MaxLength="50" />
-          <Property Type="Decimal" Name="bakanlikCiro" Nullable="true" Precision="19" />
-          <Property Type="String" Name="BakanlikMerkez" Nullable="true" MaxLength="50" />
-          <Property Type="Int32" Name="vergiID" Nullable="false" />
-          <Property Type="String" Name="vergiAdi" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="vergiTipi" Nullable="true" MaxLength="50" />
-          <Property Type="Decimal" Name="vergiTutar" Nullable="true" Precision="19" />
-          <Property Type="Decimal" Name="vergiFaiz" Nullable="true" Precision="19" />
-          <Property Type="Int32" Name="bakanlikID1" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="bcirosira_Result">
-          <Property Type="Int32" Name="bakanlikID" Nullable="false" />
-          <Property Type="String" Name="bakanlikAdi" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="daireBaskani" Nullable="true" MaxLength="50" />
-          <Property Type="Decimal" Name="bakanlikCiro" Nullable="true" Precision="19" />
-          <Property Type="String" Name="BakanlikMerkez" Nullable="true" MaxLength="50" />
-        </ComplexType>
-        <EntityType Name="EmpLogin">
-          <Key>
-            <PropertyRef Name="employeeUser" />
-            <PropertyRef Name="employeePassword" />
-          </Key>
-          <Property Name="employeeUser" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="employeePassword" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <ComplexType Name="cLogin_Result">
-          <Property Type="String" Name="employeeUser" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="employeePassword" Nullable="false" MaxLength="50" />
-        </ComplexType>
-        <ComplexType Name="kLogin_Result">
-          <Property Type="Int32" Name="kisiNo" Nullable="false" />
-          <Property Type="Int32" Name="kisiTC" Nullable="true" />
-          <Property Type="String" Name="KisiMeslek" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="KisiAdres" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="KisiTelefon" Nullable="true" MaxLength="11" />
-          <Property Type="String" Name="KisiMail" Nullable="true" MaxLength="50" />
-          <Property Type="Int32" Name="vergiID" Nullable="true" />
-        </ComplexType>
-        <EntityType Name="vergiler">
-          <Key>
-            <PropertyRef Name="vergiID" />
-          </Key>
-          <Property Name="vergiID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="vergiAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="vergiTipi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="vergiTutar" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="vergiFaiz" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="bakanlikID" Type="Int32" />
-          <NavigationProperty Name="bakanlik" Relationship="bakanModel.FK_vergiler_bakanlik" FromRole="vergiler" ToRole="bakanlik" />
-          <NavigationProperty Name="vatandas" Relationship="bakanModel.FK_vatandas_vergiler" FromRole="vergiler" ToRole="vatandas" />
-        </EntityType>
-        <Association Name="FK_vergiler_bakanlik">
-          <End Type="bakanModel.bakanlik" Role="bakanlik" Multiplicity="0..1" />
-          <End Type="bakanModel.vergiler" Role="vergiler" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="bakanlik">
-              <PropertyRef Name="bakanlikID" />
-            </Principal>
-            <Dependent Role="vergiler">
-              <PropertyRef Name="bakanlikID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="vatandas">
-          <Key>
-            <PropertyRef Name="kisiNo" />
-          </Key>
-          <Property Name="kisiNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="kisiTC" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
-          <Property Name="KisiMeslek" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="KisiAdres" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="KisiTelefon" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
-          <Property Name="KisiMail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="vergiID" Type="Int32" />
-          <NavigationProperty Name="vergiler" Relationship="bakanModel.FK_vatandas_vergiler" FromRole="vatandas" ToRole="vergiler" />
-        </EntityType>
-        <Association Name="FK_vatandas_vergiler">
-          <End Type="bakanModel.vergiler" Role="vergiler" Multiplicity="0..1" />
-          <End Type="bakanModel.vatandas" Role="vatandas" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="vergiler">
-              <PropertyRef Name="vergiID" />
-            </Principal>
-            <Dependent Role="vatandas">
-              <PropertyRef Name="vergiID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <ComplexType Name="bakver_Result">
           <Property Type="String" Name="bakanlikAdi" Nullable="true" MaxLength="50" />
           <Property Type="Int32" Name="Vergi_Sayısı" Nullable="true" />
@@ -547,9 +482,50 @@ warning 6002: The table/view 'bakan.dbo.EmpLogin' does not have a primary key de
           <Property Type="Decimal" Name="bakanlikCiro" Nullable="true" Precision="19" />
           <Property Type="String" Name="BakanlikMerkez" Nullable="true" MaxLength="50" />
         </ComplexType>
+        <ComplexType Name="cLogin_Result">
+          <Property Type="String" Name="employeeUser" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="employeePassword" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="kLogin_Result">
+          <Property Type="Int32" Name="kisiNo" Nullable="false" />
+          <Property Type="String" Name="kisiTC" Nullable="true" MaxLength="11" />
+          <Property Type="String" Name="KisiMeslek" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="KisiAdres" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="KisiTelefon" Nullable="true" MaxLength="11" />
+          <Property Type="String" Name="KisiMail" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="vergiID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="vatandasList_Result">
+          <Property Type="Int32" Name="kisiNo" Nullable="false" />
+          <Property Type="String" Name="kisiTC" Nullable="true" MaxLength="11" />
+          <Property Type="String" Name="KisiMeslek" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="KisiAdres" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="KisiTelefon" Nullable="true" MaxLength="11" />
+          <Property Type="String" Name="KisiMail" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="vergiID" Nullable="true" />
+        </ComplexType>
         <ComplexType Name="vb_Result">
           <Property Type="String" Name="bakanlikAdi" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="vergiAdi" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="vergilerList_Result">
+          <Property Type="Int32" Name="vergiID" Nullable="false" />
+          <Property Type="String" Name="vergiAdi" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="vergiTipi" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="vergiTutar" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="vergiFaiz" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="bakanlikID" Nullable="true" />
         </ComplexType>
         <ComplexType Name="vfmax_Result">
           <Property Type="Int32" Name="vergiID" Nullable="false" />
@@ -567,33 +543,9 @@ warning 6002: The table/view 'bakan.dbo.EmpLogin' does not have a primary key de
           <Property Type="Decimal" Name="vergiFaiz" Nullable="true" Precision="19" />
           <Property Type="Int32" Name="bakanlikID" Nullable="true" />
         </ComplexType>
-        <ComplexType Name="vmax_Result">
-          <Property Type="Int32" Name="vergiID" Nullable="false" />
-          <Property Type="String" Name="vergiAdi" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="vergiTipi" Nullable="true" MaxLength="50" />
-          <Property Type="Decimal" Name="vergiTutar" Nullable="true" Precision="19" />
-          <Property Type="Decimal" Name="vergiFaiz" Nullable="true" Precision="19" />
-          <Property Type="Int32" Name="bakanlikID" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="vmin_Result">
-          <Property Type="Int32" Name="vergiID" Nullable="false" />
-          <Property Type="String" Name="vergiAdi" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="vergiTipi" Nullable="true" MaxLength="50" />
-          <Property Type="Decimal" Name="vergiTutar" Nullable="true" Precision="19" />
-          <Property Type="Decimal" Name="vergiFaiz" Nullable="true" Precision="19" />
-          <Property Type="Int32" Name="bakanlikID" Nullable="true" />
-        </ComplexType>
         <ComplexType Name="vil_Result">
           <Property Type="String" Name="KisiAdres" Nullable="true" MaxLength="50" />
           <Property Type="Int32" Name="Column1" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="vmes_Result">
-          <Property Type="String" Name="KisiMeslek" Nullable="true" MaxLength="50" />
-          <Property Type="Int32" Name="Column1" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="vwv_Result">
-          <Property Type="String" Name="kisiTC" Nullable="true" MaxLength="11" />
-          <Property Type="String" Name="vergiAdi" Nullable="true" MaxLength="50" />
         </ComplexType>
         <ComplexType Name="vList_Result">
           <Property Type="Int32" Name="kisiNo" Nullable="false" />
@@ -604,12 +556,49 @@ warning 6002: The table/view 'bakan.dbo.EmpLogin' does not have a primary key de
           <Property Type="String" Name="KisiMail" Nullable="true" MaxLength="50" />
           <Property Type="Int32" Name="vergiID" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="vmax_Result">
+          <Property Type="Int32" Name="vergiID" Nullable="false" />
+          <Property Type="String" Name="vergiAdi" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="vergiTipi" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="vergiTutar" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="vergiFaiz" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="bakanlikID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="vmes_Result">
+          <Property Type="String" Name="KisiMeslek" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Column1" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="vmin_Result">
+          <Property Type="Int32" Name="vergiID" Nullable="false" />
+          <Property Type="String" Name="vergiAdi" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="vergiTipi" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="vergiTutar" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="vergiFaiz" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="bakanlikID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="vv_Result">
+          <Property Type="Int32" Name="bakanlikID" Nullable="false" />
+          <Property Type="String" Name="bakanlikAdi" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="daireBaskani" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="bakanlikCiro" Nullable="true" Precision="19" />
+          <Property Type="String" Name="BakanlikMerkez" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="vergiID" Nullable="false" />
+          <Property Type="String" Name="vergiAdi" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="vergiTipi" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="vergiTutar" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="vergiFaiz" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="bakanlikID1" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="vwv_Result">
+          <Property Type="String" Name="kisiTC" Nullable="true" MaxLength="11" />
+          <Property Type="String" Name="vergiAdi" Nullable="true" MaxLength="50" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="bakanModelStoreContainer" CdmEntityContainer="bakanEntities">
+        <EntityContainerMapping StorageEntityContainer="bakanModelStoreContainer" CdmEntityContainer="bakanEntities3">
           <EntitySetMapping Name="bakanlik">
             <EntityTypeMapping TypeName="bakanModel.bakanlik">
               <MappingFragment StoreEntitySet="bakanlik">
@@ -632,6 +621,39 @@ warning 6002: The table/view 'bakan.dbo.EmpLogin' does not have a primary key de
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="vatandas">
+            <EntityTypeMapping TypeName="bakanModel.vatandas">
+              <MappingFragment StoreEntitySet="vatandas">
+                <ScalarProperty Name="kisiNo" ColumnName="kisiNo" />
+                <ScalarProperty Name="kisiTC" ColumnName="kisiTC" />
+                <ScalarProperty Name="KisiMeslek" ColumnName="KisiMeslek" />
+                <ScalarProperty Name="KisiAdres" ColumnName="KisiAdres" />
+                <ScalarProperty Name="KisiTelefon" ColumnName="KisiTelefon" />
+                <ScalarProperty Name="KisiMail" ColumnName="KisiMail" />
+                <ScalarProperty Name="vergiID" ColumnName="vergiID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vergiler">
+            <EntityTypeMapping TypeName="bakanModel.vergiler">
+              <MappingFragment StoreEntitySet="vergiler">
+                <ScalarProperty Name="vergiID" ColumnName="vergiID" />
+                <ScalarProperty Name="vergiAdi" ColumnName="vergiAdi" />
+                <ScalarProperty Name="vergiTipi" ColumnName="vergiTipi" />
+                <ScalarProperty Name="vergiTutar" ColumnName="vergiTutar" />
+                <ScalarProperty Name="vergiFaiz" ColumnName="vergiFaiz" />
+                <ScalarProperty Name="bakanlikID" ColumnName="bakanlikID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmpLogin">
+            <EntityTypeMapping TypeName="bakanModel.EmpLogin">
+              <MappingFragment StoreEntitySet="EmpLogin">
+                <ScalarProperty Name="employeeUser" ColumnName="employeeUser" />
+                <ScalarProperty Name="employeePassword" ColumnName="employeePassword" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="bakanAdd" FunctionName="bakanModel.Store.bakanAdd" />
           <FunctionImportMapping FunctionImportName="bakanDelete" FunctionName="bakanModel.Store.bakanDelete" />
           <FunctionImportMapping FunctionImportName="bakanList" FunctionName="bakanModel.Store.bakanList">
@@ -646,6 +668,92 @@ warning 6002: The table/view 'bakan.dbo.EmpLogin' does not have a primary key de
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="bakanUpdate" FunctionName="bakanModel.Store.bakanUpdate" />
+          <FunctionImportMapping FunctionImportName="bakanVergi" FunctionName="bakanModel.Store.bakanVergi">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="bakanModel.bakanVergi_Result">
+                <ScalarProperty Name="bakanlikID" ColumnName="bakanlikID" />
+                <ScalarProperty Name="bakanlikAdi" ColumnName="bakanlikAdi" />
+                <ScalarProperty Name="daireBaskani" ColumnName="daireBaskani" />
+                <ScalarProperty Name="bakanlikCiro" ColumnName="bakanlikCiro" />
+                <ScalarProperty Name="BakanlikMerkez" ColumnName="BakanlikMerkez" />
+                <ScalarProperty Name="vergiID" ColumnName="vergiID" />
+                <ScalarProperty Name="vergiAdi" ColumnName="vergiAdi" />
+                <ScalarProperty Name="vergiTipi" ColumnName="vergiTipi" />
+                <ScalarProperty Name="vergiTutar" ColumnName="vergiTutar" />
+                <ScalarProperty Name="vergiFaiz" ColumnName="vergiFaiz" />
+                <ScalarProperty Name="bakanlikID1" ColumnName="bakanlikID1" />
+                <ScalarProperty Name="vergiID1" ColumnName="vergiID1" />
+                <ScalarProperty Name="vergiAdi1" ColumnName="vergiAdi1" />
+                <ScalarProperty Name="vergiTipi1" ColumnName="vergiTipi1" />
+                <ScalarProperty Name="vergiTutar1" ColumnName="vergiTutar1" />
+                <ScalarProperty Name="vergiFaiz1" ColumnName="vergiFaiz1" />
+                <ScalarProperty Name="bakanlikID2" ColumnName="bakanlikID2" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="bakver" FunctionName="bakanModel.Store.bakver">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="bakanModel.bakver_Result">
+                <ScalarProperty Name="bakanlikAdi" ColumnName="bakanlikAdi" />
+                <ScalarProperty Name="Vergi_Sayısı" ColumnName="Vergi Sayısı" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="bavgciro" FunctionName="bakanModel.Store.bavgciro" />
+          <FunctionImportMapping FunctionImportName="bcirosira" FunctionName="bakanModel.Store.bcirosira" />
+          <FunctionImportMapping FunctionImportName="bmaxciro" FunctionName="bakanModel.Store.bmaxciro">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="bakanModel.bmaxciro_Result">
+                <ScalarProperty Name="bakanlikID" ColumnName="bakanlikID" />
+                <ScalarProperty Name="bakanlikAdi" ColumnName="bakanlikAdi" />
+                <ScalarProperty Name="daireBaskani" ColumnName="daireBaskani" />
+                <ScalarProperty Name="bakanlikCiro" ColumnName="bakanlikCiro" />
+                <ScalarProperty Name="BakanlikMerkez" ColumnName="BakanlikMerkez" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="bmersay" FunctionName="bakanModel.Store.bmersay">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="bakanModel.bmersay_Result">
+                <ScalarProperty Name="BakanlikMerkez" ColumnName="BakanlikMerkez" />
+                <ScalarProperty Name="Column1" ColumnName="Column1" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="bminciro" FunctionName="bakanModel.Store.bminciro">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="bakanModel.bminciro_Result">
+                <ScalarProperty Name="bakanlikID" ColumnName="bakanlikID" />
+                <ScalarProperty Name="bakanlikAdi" ColumnName="bakanlikAdi" />
+                <ScalarProperty Name="daireBaskani" ColumnName="daireBaskani" />
+                <ScalarProperty Name="bakanlikCiro" ColumnName="bakanlikCiro" />
+                <ScalarProperty Name="BakanlikMerkez" ColumnName="BakanlikMerkez" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="bsumciro" FunctionName="bakanModel.Store.bsumciro" />
+          <FunctionImportMapping FunctionImportName="ciroBilgi" FunctionName="bakanModel.Store.ciroBilgi" />
+          <FunctionImportMapping FunctionImportName="cLogin" FunctionName="bakanModel.Store.cLogin">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="bakanModel.cLogin_Result">
+                <ScalarProperty Name="employeeUser" ColumnName="employeeUser" />
+                <ScalarProperty Name="employeePassword" ColumnName="employeePassword" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="kLogin" FunctionName="bakanModel.Store.kLogin">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="bakanModel.kLogin_Result">
+                <ScalarProperty Name="kisiNo" ColumnName="kisiNo" />
+                <ScalarProperty Name="kisiTC" ColumnName="kisiTC" />
+                <ScalarProperty Name="KisiMeslek" ColumnName="KisiMeslek" />
+                <ScalarProperty Name="KisiAdres" ColumnName="KisiAdres" />
+                <ScalarProperty Name="KisiTelefon" ColumnName="KisiTelefon" />
+                <ScalarProperty Name="KisiMail" ColumnName="KisiMail" />
+                <ScalarProperty Name="vergiID" ColumnName="vergiID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="bakanModel.Store.sp_alterdiagram" />
           <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="bakanModel.Store.sp_creatediagram" />
           <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="bakanModel.Store.sp_dropdiagram" />
@@ -686,6 +794,15 @@ warning 6002: The table/view 'bakan.dbo.EmpLogin' does not have a primary key de
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="vatandasUpdate" FunctionName="bakanModel.Store.vatandasUpdate" />
+          <FunctionImportMapping FunctionImportName="vavg" FunctionName="bakanModel.Store.vavg" />
+          <FunctionImportMapping FunctionImportName="vb" FunctionName="bakanModel.Store.vb">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="bakanModel.vb_Result">
+                <ScalarProperty Name="bakanlikAdi" ColumnName="bakanlikAdi" />
+                <ScalarProperty Name="vergiAdi" ColumnName="vergiAdi" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="vergiDelete" FunctionName="bakanModel.Store.vergiDelete" />
           <FunctionImportMapping FunctionImportName="vergilerAdd" FunctionName="bakanModel.Store.vergilerAdd" />
           <FunctionImportMapping FunctionImportName="vergilerList" FunctionName="bakanModel.Store.vergilerList">
@@ -701,161 +818,6 @@ warning 6002: The table/view 'bakan.dbo.EmpLogin' does not have a primary key de
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="vergilerUpdate" FunctionName="bakanModel.Store.vergilerUpdate" />
-          <FunctionImportMapping FunctionImportName="bakanVergi" FunctionName="bakanModel.Store.bakanVergi">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="bakanModel.bakanVergi_Result">
-                <ScalarProperty Name="bakanlikID" ColumnName="bakanlikID" />
-                <ScalarProperty Name="bakanlikAdi" ColumnName="bakanlikAdi" />
-                <ScalarProperty Name="daireBaskani" ColumnName="daireBaskani" />
-                <ScalarProperty Name="bakanlikCiro" ColumnName="bakanlikCiro" />
-                <ScalarProperty Name="BakanlikMerkez" ColumnName="BakanlikMerkez" />
-                <ScalarProperty Name="vergiID" ColumnName="vergiID" />
-                <ScalarProperty Name="vergiAdi" ColumnName="vergiAdi" />
-                <ScalarProperty Name="vergiTipi" ColumnName="vergiTipi" />
-                <ScalarProperty Name="vergiTutar" ColumnName="vergiTutar" />
-                <ScalarProperty Name="vergiFaiz" ColumnName="vergiFaiz" />
-                <ScalarProperty Name="bakanlikID1" ColumnName="bakanlikID1" />
-                <ScalarProperty Name="vergiID1" ColumnName="vergiID1" />
-                <ScalarProperty Name="vergiAdi1" ColumnName="vergiAdi1" />
-                <ScalarProperty Name="vergiTipi1" ColumnName="vergiTipi1" />
-                <ScalarProperty Name="vergiTutar1" ColumnName="vergiTutar1" />
-                <ScalarProperty Name="vergiFaiz1" ColumnName="vergiFaiz1" />
-                <ScalarProperty Name="bakanlikID2" ColumnName="bakanlikID2" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="vv" FunctionName="bakanModel.Store.vv">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="bakanModel.vv_Result">
-                <ScalarProperty Name="bakanlikID" ColumnName="bakanlikID" />
-                <ScalarProperty Name="bakanlikAdi" ColumnName="bakanlikAdi" />
-                <ScalarProperty Name="daireBaskani" ColumnName="daireBaskani" />
-                <ScalarProperty Name="bakanlikCiro" ColumnName="bakanlikCiro" />
-                <ScalarProperty Name="BakanlikMerkez" ColumnName="BakanlikMerkez" />
-                <ScalarProperty Name="vergiID" ColumnName="vergiID" />
-                <ScalarProperty Name="vergiAdi" ColumnName="vergiAdi" />
-                <ScalarProperty Name="vergiTipi" ColumnName="vergiTipi" />
-                <ScalarProperty Name="vergiTutar" ColumnName="vergiTutar" />
-                <ScalarProperty Name="vergiFaiz" ColumnName="vergiFaiz" />
-                <ScalarProperty Name="bakanlikID1" ColumnName="bakanlikID1" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="bcirosira" FunctionName="bakanModel.Store.bcirosira">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="bakanModel.bcirosira_Result">
-                <ScalarProperty Name="bakanlikID" ColumnName="bakanlikID" />
-                <ScalarProperty Name="bakanlikAdi" ColumnName="bakanlikAdi" />
-                <ScalarProperty Name="daireBaskani" ColumnName="daireBaskani" />
-                <ScalarProperty Name="bakanlikCiro" ColumnName="bakanlikCiro" />
-                <ScalarProperty Name="BakanlikMerkez" ColumnName="BakanlikMerkez" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <EntitySetMapping Name="EmpLogins">
-            <EntityTypeMapping TypeName="bakanModel.EmpLogin">
-              <MappingFragment StoreEntitySet="EmpLogin">
-                <ScalarProperty Name="employeePassword" ColumnName="employeePassword" />
-                <ScalarProperty Name="employeeUser" ColumnName="employeeUser" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="cLogin" FunctionName="bakanModel.Store.cLogin">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="bakanModel.cLogin_Result">
-                <ScalarProperty Name="employeeUser" ColumnName="employeeUser" />
-                <ScalarProperty Name="employeePassword" ColumnName="employeePassword" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="kLogin" FunctionName="bakanModel.Store.kLogin">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="bakanModel.kLogin_Result">
-                <ScalarProperty Name="kisiNo" ColumnName="kisiNo" />
-                <ScalarProperty Name="kisiTC" ColumnName="kisiTC" />
-                <ScalarProperty Name="KisiMeslek" ColumnName="KisiMeslek" />
-                <ScalarProperty Name="KisiAdres" ColumnName="KisiAdres" />
-                <ScalarProperty Name="KisiTelefon" ColumnName="KisiTelefon" />
-                <ScalarProperty Name="KisiMail" ColumnName="KisiMail" />
-                <ScalarProperty Name="vergiID" ColumnName="vergiID" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <EntitySetMapping Name="vergilers">
-            <EntityTypeMapping TypeName="bakanModel.vergiler">
-              <MappingFragment StoreEntitySet="vergiler">
-                <ScalarProperty Name="bakanlikID" ColumnName="bakanlikID" />
-                <ScalarProperty Name="vergiFaiz" ColumnName="vergiFaiz" />
-                <ScalarProperty Name="vergiTutar" ColumnName="vergiTutar" />
-                <ScalarProperty Name="vergiTipi" ColumnName="vergiTipi" />
-                <ScalarProperty Name="vergiAdi" ColumnName="vergiAdi" />
-                <ScalarProperty Name="vergiID" ColumnName="vergiID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="vatandas">
-            <EntityTypeMapping TypeName="bakanModel.vatandas">
-              <MappingFragment StoreEntitySet="vatandas">
-                <ScalarProperty Name="vergiID" ColumnName="vergiID" />
-                <ScalarProperty Name="KisiMail" ColumnName="KisiMail" />
-                <ScalarProperty Name="KisiTelefon" ColumnName="KisiTelefon" />
-                <ScalarProperty Name="KisiAdres" ColumnName="KisiAdres" />
-                <ScalarProperty Name="KisiMeslek" ColumnName="KisiMeslek" />
-                <ScalarProperty Name="kisiTC" ColumnName="kisiTC" />
-                <ScalarProperty Name="kisiNo" ColumnName="kisiNo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="ciroBilgi" FunctionName="bakanModel.Store.ciroBilgi" />
-          <FunctionImportMapping FunctionImportName="bakver" FunctionName="bakanModel.Store.bakver">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="bakanModel.bakver_Result">
-                <ScalarProperty Name="bakanlikAdi" ColumnName="bakanlikAdi" />
-                <ScalarProperty Name="Vergi_Sayısı" ColumnName="Vergi Sayısı" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="bavgciro" FunctionName="bakanModel.Store.bavgciro" />
-          <FunctionImportMapping FunctionImportName="bmaxciro" FunctionName="bakanModel.Store.bmaxciro">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="bakanModel.bmaxciro_Result">
-                <ScalarProperty Name="bakanlikID" ColumnName="bakanlikID" />
-                <ScalarProperty Name="bakanlikAdi" ColumnName="bakanlikAdi" />
-                <ScalarProperty Name="daireBaskani" ColumnName="daireBaskani" />
-                <ScalarProperty Name="bakanlikCiro" ColumnName="bakanlikCiro" />
-                <ScalarProperty Name="BakanlikMerkez" ColumnName="BakanlikMerkez" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="bmersay" FunctionName="bakanModel.Store.bmersay">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="bakanModel.bmersay_Result">
-                <ScalarProperty Name="BakanlikMerkez" ColumnName="BakanlikMerkez" />
-                <ScalarProperty Name="Column1" ColumnName="Column1" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="bminciro" FunctionName="bakanModel.Store.bminciro">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="bakanModel.bminciro_Result">
-                <ScalarProperty Name="bakanlikID" ColumnName="bakanlikID" />
-                <ScalarProperty Name="bakanlikAdi" ColumnName="bakanlikAdi" />
-                <ScalarProperty Name="daireBaskani" ColumnName="daireBaskani" />
-                <ScalarProperty Name="bakanlikCiro" ColumnName="bakanlikCiro" />
-                <ScalarProperty Name="BakanlikMerkez" ColumnName="BakanlikMerkez" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="bsumciro" FunctionName="bakanModel.Store.bsumciro" />
-          <FunctionImportMapping FunctionImportName="vavg" FunctionName="bakanModel.Store.vavg" />
-          <FunctionImportMapping FunctionImportName="vb" FunctionName="bakanModel.Store.vb">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="bakanModel.vb_Result">
-                <ScalarProperty Name="bakanlikAdi" ColumnName="bakanlikAdi" />
-                <ScalarProperty Name="vergiAdi" ColumnName="vergiAdi" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="vfavg" FunctionName="bakanModel.Store.vfavg" />
           <FunctionImportMapping FunctionImportName="vfmax" FunctionName="bakanModel.Store.vfmax">
             <ResultMapping>
@@ -882,6 +844,27 @@ warning 6002: The table/view 'bakan.dbo.EmpLogin' does not have a primary key de
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="vfsum" FunctionName="bakanModel.Store.vfsum" />
+          <FunctionImportMapping FunctionImportName="vil" FunctionName="bakanModel.Store.vil">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="bakanModel.vil_Result">
+                <ScalarProperty Name="KisiAdres" ColumnName="KisiAdres" />
+                <ScalarProperty Name="Column1" ColumnName="Column1" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="vList" FunctionName="bakanModel.Store.vList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="bakanModel.vList_Result">
+                <ScalarProperty Name="kisiNo" ColumnName="kisiNo" />
+                <ScalarProperty Name="kisiTC" ColumnName="kisiTC" />
+                <ScalarProperty Name="KisiMeslek" ColumnName="KisiMeslek" />
+                <ScalarProperty Name="KisiAdres" ColumnName="KisiAdres" />
+                <ScalarProperty Name="KisiTelefon" ColumnName="KisiTelefon" />
+                <ScalarProperty Name="KisiMail" ColumnName="KisiMail" />
+                <ScalarProperty Name="vergiID" ColumnName="vergiID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="vmax" FunctionName="bakanModel.Store.vmax">
             <ResultMapping>
               <ComplexTypeMapping TypeName="bakanModel.vmax_Result">
@@ -891,6 +874,14 @@ warning 6002: The table/view 'bakan.dbo.EmpLogin' does not have a primary key de
                 <ScalarProperty Name="vergiTutar" ColumnName="vergiTutar" />
                 <ScalarProperty Name="vergiFaiz" ColumnName="vergiFaiz" />
                 <ScalarProperty Name="bakanlikID" ColumnName="bakanlikID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="vmes" FunctionName="bakanModel.Store.vmes">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="bakanModel.vmes_Result">
+                <ScalarProperty Name="KisiMeslek" ColumnName="KisiMeslek" />
+                <ScalarProperty Name="Column1" ColumnName="Column1" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -907,19 +898,20 @@ warning 6002: The table/view 'bakan.dbo.EmpLogin' does not have a primary key de
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="vsum" FunctionName="bakanModel.Store.vsum" />
-          <FunctionImportMapping FunctionImportName="vil" FunctionName="bakanModel.Store.vil">
+          <FunctionImportMapping FunctionImportName="vv" FunctionName="bakanModel.Store.vv">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="bakanModel.vil_Result">
-                <ScalarProperty Name="KisiAdres" ColumnName="KisiAdres" />
-                <ScalarProperty Name="Column1" ColumnName="Column1" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="vmes" FunctionName="bakanModel.Store.vmes">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="bakanModel.vmes_Result">
-                <ScalarProperty Name="KisiMeslek" ColumnName="KisiMeslek" />
-                <ScalarProperty Name="Column1" ColumnName="Column1" />
+              <ComplexTypeMapping TypeName="bakanModel.vv_Result">
+                <ScalarProperty Name="bakanlikID" ColumnName="bakanlikID" />
+                <ScalarProperty Name="bakanlikAdi" ColumnName="bakanlikAdi" />
+                <ScalarProperty Name="daireBaskani" ColumnName="daireBaskani" />
+                <ScalarProperty Name="bakanlikCiro" ColumnName="bakanlikCiro" />
+                <ScalarProperty Name="BakanlikMerkez" ColumnName="BakanlikMerkez" />
+                <ScalarProperty Name="vergiID" ColumnName="vergiID" />
+                <ScalarProperty Name="vergiAdi" ColumnName="vergiAdi" />
+                <ScalarProperty Name="vergiTipi" ColumnName="vergiTipi" />
+                <ScalarProperty Name="vergiTutar" ColumnName="vergiTutar" />
+                <ScalarProperty Name="vergiFaiz" ColumnName="vergiFaiz" />
+                <ScalarProperty Name="bakanlikID1" ColumnName="bakanlikID1" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -928,19 +920,6 @@ warning 6002: The table/view 'bakan.dbo.EmpLogin' does not have a primary key de
               <ComplexTypeMapping TypeName="bakanModel.vwv_Result">
                 <ScalarProperty Name="kisiTC" ColumnName="kisiTC" />
                 <ScalarProperty Name="vergiAdi" ColumnName="vergiAdi" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="vList" FunctionName="bakanModel.Store.vList">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="bakanModel.vList_Result">
-                <ScalarProperty Name="kisiNo" ColumnName="kisiNo" />
-                <ScalarProperty Name="kisiTC" ColumnName="kisiTC" />
-                <ScalarProperty Name="KisiMeslek" ColumnName="KisiMeslek" />
-                <ScalarProperty Name="KisiAdres" ColumnName="KisiAdres" />
-                <ScalarProperty Name="KisiTelefon" ColumnName="KisiTelefon" />
-                <ScalarProperty Name="KisiMail" ColumnName="KisiMail" />
-                <ScalarProperty Name="vergiID" ColumnName="vergiID" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -958,7 +937,7 @@ warning 6002: The table/view 'bakan.dbo.EmpLogin' does not have a primary key de
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

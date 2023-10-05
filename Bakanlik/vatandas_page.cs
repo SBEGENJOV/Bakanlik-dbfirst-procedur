@@ -17,7 +17,7 @@ namespace Bakanlik
         {
             InitializeComponent();
         }
-        bakanEntities conn = new bakanEntities();
+        bakanEntities3 conn = new bakanEntities3();
         private void button1_Click(object sender, EventArgs e)
         {
             var query = from user in conn.vatandas where user.kisiNo==Form2.kNo select user;
@@ -60,13 +60,14 @@ namespace Bakanlik
             emp.KisiTelefon = textBox7.Text;
             emp.KisiMail = textBox11.Text;
             emp.vergiID = Convert.ToInt32(verID);
-            conn.vatandasUpdate(emp.kisiNo, emp.kisiTC, emp.KisiMeslek, emp.KisiAdres, emp.KisiTelefon, emp.KisiMail, emp.vergiID);
+            object value = conn.vatandasUpdate(emp.kisiNo, emp.kisiTC, emp.KisiMeslek, emp.KisiAdres, emp.KisiTelefon, emp.KisiMail, emp.vergiID);
             conn.SaveChanges();
+            dataGridView2.DataSource = query.ToList();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Form1 gec = new Form1();
+            Form2 gec = new Form2();
             gec.Show();
             this.Hide();
             Form2.kNo = 0;

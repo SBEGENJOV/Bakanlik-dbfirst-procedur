@@ -19,7 +19,7 @@ namespace Bakanlik
         {
             InitializeComponent();
         }
-        bakanEntities conn=new bakanEntities();
+        bakanEntities3 conn=new bakanEntities3();
         private void button1_Click(object sender, EventArgs e)
         {
             //dataGridView1.DataSource=con.vv(1).ToList();
@@ -88,7 +88,7 @@ namespace Bakanlik
                 kNo = query.First();
             }
 
-            if (conn.kLogin(kgir.KisiTelefon,Convert.ToInt32(kgir.kisiTC)).Any())
+            if (conn.kLogin(kgir.KisiTelefon,kgir.kisiTC).Any())
             {
                 MessageBox.Show("giriş başarılı");
                 vatandas_page vgec= new vatandas_page();

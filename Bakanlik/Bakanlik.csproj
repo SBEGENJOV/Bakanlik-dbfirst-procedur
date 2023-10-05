@@ -75,9 +75,6 @@
     <Compile Include="bakver_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="bcirosira_Result.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="bmaxciro_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

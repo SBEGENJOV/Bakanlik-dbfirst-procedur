@@ -21,7 +21,5 @@ namespace Bakanlik
         public string KisiTelefon { get; set; }
         public string KisiMail { get; set; }
         public Nullable<int> vergiID { get; set; }
-    
-        public virtual vergiler vergiler { get; set; }
     }
 }

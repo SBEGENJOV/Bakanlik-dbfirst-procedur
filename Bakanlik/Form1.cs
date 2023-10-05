@@ -17,7 +17,7 @@ namespace Bakanlik
 {
     public partial class Form1 : Form
     {
-        bakanEntities conn=new bakanEntities();
+        bakanEntities3 conn=new bakanEntities3();
         public Form1()
         {
             InitializeComponent();
